@@ -1,4 +1,5 @@
 using Timelogger.Entities;
+using Timelogger.Enums;
 
 namespace Timelogger.Api.Data
 {
@@ -16,24 +17,31 @@ namespace Timelogger.Api.Data
             {
                 new User
                 {
-                    Name = "Freelancer Default",
-                    Email = "free-default@email.com",
+                    Name = "Freelancer 001",
+                    Email = "free-001@email.com",
                     Password = "freelancer",
-                    Role = "Freelancer"
+                    Role = Role.Freelancer
+                },
+                new User
+                {
+                    Name = "Freelancer 002",
+                    Email = "free-002@email.com",
+                    Password = "freelancer",
+                    Role = Role.Freelancer
                 },
                 new User
                 {
                     Name = "Customer 001",
                     Email = "customer-001@email.com",
                     Password = "customer1",
-                    Role = "Customer"
+                    Role = Role.Customer
                 },
                 new User
                 {
                     Name = "Customer 002",
                     Email = "customer-002@email.com",
                     Password = "customer2",
-                    Role = "Customer"
+                    Role = Role.Customer
                 }
             };
 
@@ -53,13 +61,13 @@ namespace Timelogger.Api.Data
                 {
                     Name = "Project 001",
                     FreelancerId = 1,
-                    CustomerId = 2
+                    CustomerId = 3
                 },
                 new Project
                 {
                     Name = "Project 002",
                     FreelancerId = 1,
-                    CustomerId = 3
+                    CustomerId = 4
                 },
             };
 

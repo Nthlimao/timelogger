@@ -45,7 +45,7 @@ namespace Timelogger.Api.Controllers
             {
                 new Claim("Id", user.Id.ToString()),
                 new Claim("Email", user.Email),
-                new Claim("Role", user.Role)
+                new Claim("Role", user.Role.ToString())
             };
 
             var key = new SymmetricSecurityKey(
