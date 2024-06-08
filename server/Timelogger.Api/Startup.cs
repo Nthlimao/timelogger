@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Timelogger.Api.Data;
-using Timelogger.Entities;
 
 namespace Timelogger.Api
 {
@@ -40,6 +42,28 @@ namespace Timelogger.Api
                 builder.AddDebug();
             });
 
+            services
+                .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidIssuer = Configuration["Auth:Jwt:Issuer"],
+                        ValidAudience = Configuration["Auth:Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(Configuration["Auth:Jwt:Key"])
+                        )
+                    };
+                });
+
+            services.AddAuthorization();
             services.AddMvc(options => options.EnableEndpointRouting = false);
 
             if (_environment.IsDevelopment())
@@ -61,6 +85,8 @@ namespace Timelogger.Api
                 );
             }
 
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseMvc();
 
             var serviceScopeFactory = app.ApplicationServices.GetService<IServiceScopeFactory>();

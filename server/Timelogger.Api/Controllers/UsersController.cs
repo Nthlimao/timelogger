@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Timelogger.Api.Controllers
 {
@@ -12,6 +13,7 @@ namespace Timelogger.Api.Controllers
             _context = context;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("hello-users")]
         public string HelloUsers()
