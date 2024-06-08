@@ -2,6 +2,8 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Timelogger.Entities;
 using Timelogger.Enums;
 
 namespace Timelogger.Api.Controllers
@@ -18,21 +20,7 @@ namespace Timelogger.Api.Controllers
 		}
 
 		[HttpGet]
-		[Route("hello-world")]
-		public string HelloWorld()
-		{
-			var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
-			if (userIdClaim == null)
-			{
-				return "Unauthorized";
-			}
-
-			return userIdClaim.ToString();
-		}
-
-		// GET api/projects
-		[HttpGet]
-		public IActionResult Get()
+		public IActionResult GetProjects()
 		{
 			var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
 
@@ -56,8 +44,83 @@ namespace Timelogger.Api.Controllers
 				return Ok(customerProjects);
 			}
 
-
 			return Ok();
 		}
+
+		[HttpPost]
+		public IActionResult CreateProject(Project project)
+		{
+			var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
+
+			if (userIdClaim == null)
+			{
+				return Unauthorized();
+			}
+
+			var userId = int.Parse(userIdClaim.Value);
+			project.FreelancerId = userId;
+
+			_context.Projects.Add(project);
+			_context.SaveChanges();
+
+			return Ok(project);
+		}
+
+		[HttpPut("{id}")]
+		public IActionResult UpdateProject(int id, Project updatedProject)
+		{
+			var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
+			if (userIdClaim == null)
+			{
+				return Unauthorized();
+			}
+
+			var userId = int.Parse(userIdClaim.Value);
+			var project = _context.Projects.Find(id);
+
+			if (project == null || project.FreelancerId != userId)
+			{
+				return NotFound();
+			}
+
+			project.Name = updatedProject.Name;
+			project.CustomerId = updatedProject.CustomerId;
+
+			_context.Entry(project).State = EntityState.Modified;
+			_context.SaveChanges();
+
+			return Ok(project);
+		}
+
+		[HttpDelete("{id}")]
+		public IActionResult DeleteProject(int id)
+		{
+			var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
+			if (userIdClaim == null)
+			{
+				return Unauthorized();
+			}
+
+			var userId = int.Parse(userIdClaim.Value);
+			var project = _context.Projects.Find(id);
+
+			if (project == null || project.FreelancerId != userId)
+			{
+				return NotFound();
+			}
+
+			var tasks = _context.Tasks.Where(t => t.ProjectId == project.Id);
+
+			foreach (Task task in tasks)
+			{
+				_context.Tasks.Remove(task);
+			}
+
+			_context.Projects.Remove(project);
+			_context.SaveChanges();
+
+			return NoContent();
+		}
+
 	}
 }
