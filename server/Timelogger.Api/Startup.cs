@@ -93,7 +93,8 @@ namespace Timelogger.Api
             var serviceScopeFactory = app.ApplicationServices.GetService<IServiceScopeFactory>();
             using (var scope = serviceScopeFactory.CreateScope())
             {
-                DbInitializer.Initialize(scope);
+                var context = scope.ServiceProvider.GetService<ApiContext>();
+                DbInitializer.Initialize(context);
             }
         }
     }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using Timelogger.Api.Controllers;
-using Timelogger.Api.Data.Seeds;
+using Timelogger.Api.Data;
 using Timelogger;
 using Timelogger.Dto;
 using Timelogger.Entities;
@@ -22,29 +22,13 @@ public class ProjectsControllerTests
     public void SetUp()
     {
         var options = new DbContextOptionsBuilder<ApiContext>()
-            .UseInMemoryDatabase(databaseName: "TestDatabase")
+            .UseInMemoryDatabase(databaseName: "ProjectsTestDatabase")
             .Options;
 
         _context = new ApiContext(options);
         _controller = new ProjectsController(_context);
 
-        SeedDatabase();
-    }
-
-    private void SeedDatabase()
-    {
-        var projects = ProjectSeed.Create();
-
-        foreach (Project project in projects)
-        {
-            _context.Projects.Add(project);
-        }
-
-        // var task1 = new Task { Id = 1, ProjectId = 1, Name = "Task 1", TimeSpent = 5 };
-        // var task2 = new Task { Id = 2, ProjectId = 2, Name = "Task 2", TimeSpent = 3 };
-        // _context.Tasks.AddRange(task1, task2);
-
-        _context.SaveChanges();
+        DbInitializer.Initialize(_context);
     }
 
     private void SetUserClaims(string userId, string role)

@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace Timelogger.Entities
 {
     public class Task
@@ -8,5 +6,7 @@ namespace Timelogger.Entities
         public string Title { get; set; }
         public int TimeSpent { get; set; }
         public int ProjectId { get; set; }
+        public int? TaskTypeId { get; set; }
+        public int? TaskCategoryId { get; set; }
     }
 }
