@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Timelogger.Dto;
 using Timelogger.Entities;
 
 namespace Timelogger.Api.Controllers
@@ -24,7 +25,7 @@ namespace Timelogger.Api.Controllers
 
         [HttpPost]
         [Route("login")]
-        public IActionResult Login(UserAuth payload)
+        public IActionResult Login(UserAuthDTO payload)
         {
             var user = _context.Users.SingleOrDefault(u =>
                 u.Email == payload.Email && u.Password == payload.Password
@@ -58,7 +59,7 @@ namespace Timelogger.Api.Controllers
                 issuer: _configuration["Auth:Jwt:Issuer"],
                 audience: _configuration["Auth:Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(30),
+                expires: DateTime.Now.AddMinutes(90),
                 signingCredentials: credentials
             );
 
