@@ -1,8 +1,11 @@
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Timelogger.Enums;
 
 namespace Timelogger.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class UsersController : Controller
     {
@@ -13,18 +16,18 @@ namespace Timelogger.Api.Controllers
             _context = context;
         }
 
-        [Authorize]
         [HttpGet]
-        [Route("hello-users")]
-        public string HelloUsers()
+        public ActionResult GetCustomers()
         {
-            return "Hello User!";
-        }
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
 
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok(_context.Users);
+            var users = _context.Users.Where(p => p.Role == Role.Customer).ToList();
+
+            return Ok(users);
         }
     }
 }
