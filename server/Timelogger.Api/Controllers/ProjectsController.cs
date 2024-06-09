@@ -22,6 +22,7 @@ namespace Timelogger.Api.Controllers
 			_context = context;
 		}
 
+		[Authorize(Policy = "RequireFreelancerOrCustomer")]
 		[HttpGet]
 		public ActionResult GetProjects(
 			string sortBy = "Id",
@@ -48,7 +49,7 @@ namespace Timelogger.Api.Controllers
 			}
 			else if (userRoleClaim.Value == Role.Customer.ToString())
 			{
-				queryProjects = _context.Projects.Where(p => p.CustomerId == userId);
+				queryProjects = _context.Projects.Where(p => p.CustomerId == userId).OrderBy(p => p.Id);
 			}
 			else
 			{
@@ -90,6 +91,7 @@ namespace Timelogger.Api.Controllers
 			});
 		}
 
+		[Authorize(Policy = "RequireFreelancerOrCustomer")]
 		[HttpGet("{id}")]
 		public ActionResult GetProject(int id)
 		{
@@ -127,13 +129,13 @@ namespace Timelogger.Api.Controllers
 			});
 		}
 
+		[Authorize(Policy = "FreelancerOnly")]
 		[HttpPost]
 		public ActionResult CreateProject(Project project)
 		{
 			var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
-			var userRoleClaim = User.Claims.FirstOrDefault(c => c.Type == "Role");
 
-			if (userIdClaim == null || userRoleClaim == null || userRoleClaim.Value != Role.Freelancer.ToString())
+			if (userIdClaim == null)
 			{
 				return Unauthorized();
 			}
@@ -147,13 +149,13 @@ namespace Timelogger.Api.Controllers
 			return Ok(project);
 		}
 
+		[Authorize(Policy = "FreelancerOnly")]
 		[HttpPut("{id}")]
 		public ActionResult UpdateProject(int id, Project updatedProject)
 		{
 			var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
-			var userRoleClaim = User.Claims.FirstOrDefault(c => c.Type == "Role");
 
-			if (userIdClaim == null || userRoleClaim == null || userRoleClaim.Value != Role.Freelancer.ToString())
+			if (userIdClaim == null)
 			{
 				return Unauthorized();
 			}
@@ -176,13 +178,13 @@ namespace Timelogger.Api.Controllers
 			return Ok(project);
 		}
 
+		[Authorize(Policy = "FreelancerOnly")]
 		[HttpDelete("{id}")]
 		public ActionResult DeleteProject(int id)
 		{
 			var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
-			var userRoleClaim = User.Claims.FirstOrDefault(c => c.Type == "Role");
 
-			if (userIdClaim == null || userRoleClaim == null || userRoleClaim.Value != Role.Freelancer.ToString())
+			if (userIdClaim == null)
 			{
 				return Unauthorized();
 			}

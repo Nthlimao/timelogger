@@ -119,11 +119,9 @@ public class ProjectsControllerTests
         var projectResult = (ProjectDTO)okResult.Value;
 
         Assert.That(projectResult.Id, Is.EqualTo(1));
-        Assert.That(projectResult.Name, Is.EqualTo("Project 001"));
+        Assert.That(projectResult.Name, Is.EqualTo("Website Development"));
         Assert.That(projectResult.FreelancerId, Is.EqualTo(1));
         Assert.That(projectResult.CustomerId, Is.EqualTo(3));
-
-        // TODO: ADD TASKS END TIMESPENT CHECK
     }
 
     [Test]
@@ -139,17 +137,6 @@ public class ProjectsControllerTests
     public void CreateProject_UnauthorizedUser_ReturnsUnauthorized()
     {
         SetUserClaims(null, null);
-        var newProject = new Project { };
-
-        var result = _controller.CreateProject(newProject);
-
-        Assert.That(result, Is.TypeOf(typeof(UnauthorizedResult)));
-    }
-
-    [Test]
-    public void CreateProject_UnauthorizedUserRole_ReturnsUnauthorized()
-    {
-        SetUserClaims("1", Role.Other.ToString());
         var newProject = new Project { };
 
         var result = _controller.CreateProject(newProject);
@@ -194,16 +181,6 @@ public class ProjectsControllerTests
     public void UpdateProject_UnauthorizedUser_ReturnsUnauthorized()
     {
         SetUserClaims(null, null);
-        var changedProject = new Project { };
-        var result = _controller.UpdateProject(1, changedProject);
-
-        Assert.That(result, Is.TypeOf(typeof(UnauthorizedResult)));
-    }
-
-    [Test]
-    public void UpdateProject_UnauthorizedUserRole_ReturnsUnauthorized()
-    {
-        SetUserClaims("1", Role.Other.ToString());
         var changedProject = new Project { };
         var result = _controller.UpdateProject(1, changedProject);
 
@@ -258,15 +235,6 @@ public class ProjectsControllerTests
     public void DeleteProject_UnauthorizedUser_ReturnsUnauthorized()
     {
         SetUserClaims(null, null);
-        var result = _controller.DeleteProject(13);
-
-        Assert.That(result, Is.TypeOf(typeof(UnauthorizedResult)));
-    }
-
-    [Test]
-    public void DeleteProject_UnauthorizedUserRole_ReturnsUnauthorized()
-    {
-        SetUserClaims("1", Role.Other.ToString());
         var result = _controller.DeleteProject(13);
 
         Assert.That(result, Is.TypeOf(typeof(UnauthorizedResult)));
