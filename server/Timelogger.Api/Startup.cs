@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Timelogger.Api.Data;
+using Timelogger.Enums;
 
 namespace Timelogger.Api
 {
@@ -63,7 +64,23 @@ namespace Timelogger.Api
                     };
                 });
 
-            services.AddAuthorization();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(
+                    "FreelancerOnly",
+                    policy => policy.RequireClaim("Role", Role.Freelancer.ToString())
+                );
+                options.AddPolicy(
+                    "RequireFreelancerOrCustomer",
+                    policy =>
+                        policy.RequireAssertion(context =>
+                            context.User.HasClaim(c =>
+                                (c.Type == "Role" && c.Value == Role.Freelancer.ToString())
+                                || (c.Type == "Role" && c.Value == Role.Customer.ToString())
+                            )
+                        )
+                );
+            });
 
             services.AddMvc(options => options.EnableEndpointRouting = false);
 
