@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Timelogger.Entities;
 
@@ -11,88 +12,88 @@ namespace Timelogger.Api.Data.Seeds
             [
                 new Project
                 {
-                    Name = "Project 001",
-                    Deadline = null,
+                    Name = "Website Development",
+                    Deadline = new DateTime(2024, 07, 15),
                     FreelancerId = 1,
                     CustomerId = 3
                 },
                 new Project
                 {
-                    Name = "Project 002",
-                    Deadline = null,
-                    FreelancerId = 1,
-                    CustomerId = 4
-                },
-                new Project
-                {
-                    Name = "Project 003",
-                    Deadline = null,
+                    Name = "Mobile App Development",
+                    Deadline = new DateTime(2024, 08, 31),
                     FreelancerId = 1,
                     CustomerId = 3
                 },
                 new Project
                 {
-                    Name = "Project 004",
-                    Deadline = null,
-                    FreelancerId = 1,
-                    CustomerId = 4
-                },
-                new Project
-                {
-                    Name = "Project 005",
-                    Deadline = null,
+                    Name = "Marketing Campaign",
+                    Deadline = new DateTime(2024, 09, 30),
                     FreelancerId = 1,
                     CustomerId = 3
                 },
                 new Project
                 {
-                    Name = "Project 006",
-                    Deadline = null,
-                    FreelancerId = 1,
-                    CustomerId = 4
-                },
-                new Project
-                {
-                    Name = "Project 007",
-                    Deadline = null,
+                    Name = "Product Launch",
+                    Deadline = new DateTime(2024, 10, 15),
                     FreelancerId = 1,
                     CustomerId = 3
                 },
                 new Project
                 {
-                    Name = "Project 008",
-                    Deadline = null,
-                    FreelancerId = 1,
-                    CustomerId = 4
-                },
-                new Project
-                {
-                    Name = "Project 009",
-                    Deadline = null,
+                    Name = "Software Maintenance",
+                    Deadline = new DateTime(2024, 11, 30),
                     FreelancerId = 1,
                     CustomerId = 3
                 },
                 new Project
                 {
-                    Name = "Project 010",
-                    Deadline = null,
-                    FreelancerId = 1,
-                    CustomerId = 4
-                },
-                new Project
-                {
-                    Name = "Project 011",
-                    Deadline = null,
+                    Name = "Data Analysis",
+                    Deadline = new DateTime(2024, 12, 20),
                     FreelancerId = 1,
                     CustomerId = 3
                 },
                 new Project
                 {
-                    Name = "Project 012",
-                    Deadline = null,
+                    Name = "Network Security Audit",
+                    Deadline = new DateTime(2025, 01, 10),
+                    FreelancerId = 1,
+                    CustomerId = 3
+                },
+                new Project
+                {
+                    Name = "Business Process Improvement",
+                    Deadline = new DateTime(2025, 02, 25),
+                    FreelancerId = 1,
+                    CustomerId = 3
+                },
+                new Project
+                {
+                    Name = "Customer Relationship Management (CRM) Implementation",
+                    Deadline = new DateTime(2025, 03, 15),
                     FreelancerId = 1,
                     CustomerId = 4
                 },
+                new Project
+                {
+                    Name = "Training and Development Program",
+                    Deadline = new DateTime(2025, 04, 30),
+                    FreelancerId = 1,
+                    CustomerId = 4
+                },
+                new Project
+                {
+                    Name = "Inventory Management System Upgrade",
+                    Deadline = new DateTime(2025, 05, 20),
+                    FreelancerId = 1,
+                    CustomerId = 4
+                },
+                new Project
+                {
+                    Name = "Annual Financial Report Preparation",
+                    Deadline = new DateTime(2025, 06, 30),
+                    FreelancerId = 1,
+                    CustomerId = 4
+                }
             ];
         }
     }

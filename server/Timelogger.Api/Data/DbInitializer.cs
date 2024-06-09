@@ -1,8 +1,4 @@
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Timelogger.Api.Data.Seeds;
-using Timelogger.Entities;
 
 namespace Timelogger.Api.Data
 {
@@ -18,9 +14,12 @@ namespace Timelogger.Api.Data
             // TASKS ELEMENTS
             var categories = TaskSeed.CreateCategories();
             var types = TaskSeed.CreateTypes();
+            var tasks = TaskSeed.Create();
 
             context.TaskCategories.AddRange(categories);
             context.TaskTypes.AddRange(types);
+            context.Tasks.AddRange(tasks);
+
             // PROJECTS
             var projects = ProjectSeed.Create();
             context.Projects.AddRange(projects);
