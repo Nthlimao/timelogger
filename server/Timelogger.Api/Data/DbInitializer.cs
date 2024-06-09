@@ -1,75 +1,25 @@
+using Microsoft.Extensions.DependencyInjection;
+using Timelogger.Api.Data.Seeds;
 using Timelogger.Entities;
-using Timelogger.Enums;
 
 namespace Timelogger.Api.Data
 {
     public static class DbInitializer
     {
-        public static void Initialize(ApiContext context)
+        public static void Initialize(IServiceScope scope)
         {
-            UserSeed(context);
-            ProjectSeed(context);
-        }
+            var context = scope.ServiceProvider.GetService<ApiContext>();
 
-        public static void UserSeed(ApiContext context)
-        {
-            var users = new User[]
-            {
-                new User
-                {
-                    Name = "Freelancer 001",
-                    Email = "free-001@email.com",
-                    Password = "freelancer",
-                    Role = Role.Freelancer
-                },
-                new User
-                {
-                    Name = "Freelancer 002",
-                    Email = "free-002@email.com",
-                    Password = "freelancer",
-                    Role = Role.Freelancer
-                },
-                new User
-                {
-                    Name = "Customer 001",
-                    Email = "customer-001@email.com",
-                    Password = "customer1",
-                    Role = Role.Customer
-                },
-                new User
-                {
-                    Name = "Customer 002",
-                    Email = "customer-002@email.com",
-                    Password = "customer2",
-                    Role = Role.Customer
-                }
-            };
+            // USERS
+            var users = UserSeed.Create();
 
             foreach (User user in users)
             {
                 context.Users.Add(user);
             }
 
-            context.SaveChanges();
-        }
-
-        public static void ProjectSeed(ApiContext context)
-        {
-            var projects = new Project[]
-            {
-                new Project
-                {
-                    Name = "Project 001",
-                    FreelancerId = 1,
-                    CustomerId = 3
-                },
-                new Project
-                {
-                    Name = "Project 002",
-                    FreelancerId = 1,
-                    CustomerId = 4
-                },
-            };
+            // PROJECTS
+            var projects = ProjectSeed.Create();
 
             foreach (Project project in projects)
             {
@@ -78,5 +28,6 @@ namespace Timelogger.Api.Data
 
             context.SaveChanges();
         }
+
     }
 }

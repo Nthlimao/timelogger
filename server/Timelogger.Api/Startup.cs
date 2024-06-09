@@ -64,6 +64,7 @@ namespace Timelogger.Api
                 });
 
             services.AddAuthorization();
+
             services.AddMvc(options => options.EnableEndpointRouting = false);
 
             if (_environment.IsDevelopment())
@@ -92,14 +93,8 @@ namespace Timelogger.Api
             var serviceScopeFactory = app.ApplicationServices.GetService<IServiceScopeFactory>();
             using (var scope = serviceScopeFactory.CreateScope())
             {
-                SeedDatabase(scope);
+                DbInitializer.Initialize(scope);
             }
-        }
-
-        private static void SeedDatabase(IServiceScope scope)
-        {
-            var context = scope.ServiceProvider.GetService<ApiContext>();
-            DbInitializer.Initialize(context);
         }
     }
 }
