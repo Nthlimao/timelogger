@@ -23,18 +23,21 @@ namespace Timelogger.Api.Controllers
 		}
 
 		[HttpGet]
-		public ActionResult<PagedResultDTO<ProjectDTO>> GetProjects(string sortBy = "Id",
+		public ActionResult GetProjects(
+			string sortBy = "Id",
 			string sortDirection = "asc",
-			int limit = 10, int page = 1)
+			int limit = 10,
+			int page = 1
+			)
 		{
 			var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
+			var userRoleClaim = User.Claims.FirstOrDefault(c => c.Type == "Role");
 
-			if (userIdClaim == null)
+			if (userIdClaim == null || userRoleClaim == null)
 			{
 				return Unauthorized();
 			}
 
-			var userRoleClaim = User.Claims.FirstOrDefault(c => c.Type == "Role");
 			var userId = int.Parse(userIdClaim.Value);
 
 			IQueryable<Project> queryProjects = null;
@@ -49,7 +52,14 @@ namespace Timelogger.Api.Controllers
 			}
 			else
 			{
-				return Ok();
+				return Ok(new PagedResultDTO<ProjectDTO>
+				{
+					Items = [],
+					PageNumber = 0,
+					PageSize = 0,
+					TotalPages = 0,
+					TotalItems = 0
+				});
 			}
 
 			queryProjects = SortProjects(queryProjects, sortBy, sortDirection);
@@ -81,18 +91,33 @@ namespace Timelogger.Api.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public ActionResult<ProjectDTO> GetProject(int id)
+		public ActionResult GetProject(int id)
 		{
 			var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
+			var userRoleClaim = User.Claims.FirstOrDefault(c => c.Type == "Role");
 
-			if (userIdClaim == null)
+			if (userIdClaim == null || userRoleClaim == null)
 			{
 				return Unauthorized();
 			}
+			var userId = int.Parse(userIdClaim.Value);
 
-			var userRoleClaim = User.Claims.FirstOrDefault(c => c.Type == "Role");
+			IQueryable<Project> queryProject = null;
 
-			var project = _context.Projects.Find(id);
+			if (userRoleClaim.Value == Role.Freelancer.ToString())
+			{
+				queryProject = _context.Projects.Where(p => p.Id == id && p.FreelancerId == userId);
+			}
+			else if (userRoleClaim.Value == Role.Customer.ToString())
+			{
+				queryProject = _context.Projects.Where(p => p.Id == id && p.CustomerId == userId);
+			}
+			else
+			{
+				return NotFound();
+			}
+
+			var project = queryProject.First();
 			var tasks = _context.Tasks.Where(t => t.ProjectId == project.Id).ToList();
 
 			return Ok(new ProjectDTO(project)
@@ -103,11 +128,12 @@ namespace Timelogger.Api.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult<Project> CreateProject(Project project)
+		public ActionResult CreateProject(Project project)
 		{
 			var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
+			var userRoleClaim = User.Claims.FirstOrDefault(c => c.Type == "Role");
 
-			if (userIdClaim == null)
+			if (userIdClaim == null || userRoleClaim == null || userRoleClaim.Value != Role.Freelancer.ToString())
 			{
 				return Unauthorized();
 			}
@@ -122,10 +148,12 @@ namespace Timelogger.Api.Controllers
 		}
 
 		[HttpPut("{id}")]
-		public ActionResult<Project> UpdateProject(int id, Project updatedProject)
+		public ActionResult UpdateProject(int id, Project updatedProject)
 		{
 			var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
-			if (userIdClaim == null)
+			var userRoleClaim = User.Claims.FirstOrDefault(c => c.Type == "Role");
+
+			if (userIdClaim == null || userRoleClaim == null || userRoleClaim.Value != Role.Freelancer.ToString())
 			{
 				return Unauthorized();
 			}
@@ -149,10 +177,12 @@ namespace Timelogger.Api.Controllers
 		}
 
 		[HttpDelete("{id}")]
-		public IActionResult DeleteProject(int id)
+		public ActionResult DeleteProject(int id)
 		{
 			var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
-			if (userIdClaim == null)
+			var userRoleClaim = User.Claims.FirstOrDefault(c => c.Type == "Role");
+
+			if (userIdClaim == null || userRoleClaim == null || userRoleClaim.Value != Role.Freelancer.ToString())
 			{
 				return Unauthorized();
 			}

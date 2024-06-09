@@ -11,6 +11,8 @@ namespace Timelogger.Dto
         {
             Id = project.Id;
             Name = project.Name;
+            FreelancerId = project.FreelancerId;
+            CustomerId = project.CustomerId;
             Deadline = project.Deadline;
             CustomerId = project.CustomerId;
         }
