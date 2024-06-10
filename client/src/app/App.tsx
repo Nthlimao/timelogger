@@ -1,23 +1,17 @@
-import * as React from "react";
-import Projects from "./views/Projects";
-import "./style.css";
+import { ThemeProvider } from "styled-components";
+import { AuthProvider } from "@/shared/contexts/auth";
 
-export default function App() {
-    return (
-        <>
-            <header className="bg-gray-900 text-white flex items-center h-12 w-full">
-                <div className="container mx-auto">
-                    <a className="navbar-brand" href="/">
-                        Timelogger
-                    </a>
-                </div>
-            </header>
+const App = () => {
+  return (
+    <ThemeProvider theme={{}}>
+      <AuthProvider>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero laborum
+        culpa quia non voluptates maxime necessitatibus quod quasi cumque
+        tenetur! Commodi voluptate quis totam molestiae aperiam neque similique
+        minima debitis.
+      </AuthProvider>
+    </ThemeProvider>
+  );
+};
 
-            <main>
-                <div className="container mx-auto">
-                    <Projects />
-                </div>
-            </main>
-        </>
-    );
-}
+export default App;
