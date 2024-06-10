@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -15,12 +16,12 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@internal-types/*": ["./src/shared/types/*"],
-      "@contexts/*": ["./src/shared/contexts/*"],
-      "@hooks/*": ["./src/shared/hooks/*"],
-      "@services/*": ["./src/shared/services/*"]
+      "@/*": ["src/*"],
+      "@/pages/*": ["src/pages/*"],
+      "@/types/*": ["src/shared/types/*"],
+      "@/contexts/*": ["src/shared/contexts/*"],
+      "@/hooks/*": ["src/shared/hooks/*"],
+      "@/services/*": ["src/shared/services/*"]
     }
   },
   "include": ["src"]

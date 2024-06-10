@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useContext } from "react";
-import { AuthContext } from "@contexts/auth";
-import { AuthContextType } from "@contexts/auth/auth.types";
-import { authLogin } from "@services/auth.service";
-import { AuthPayload } from "@internal-types/Auth";
-import { User } from "@internal-types/User";
+import { AuthContext } from "../contexts/auth";
+import { AuthContextType } from "@/contexts/auth/auth.types";
+import { authLogin } from "../services/auth.service";
+import { AuthPayload } from "@/types/Auth";
+import { User } from "@/types/User";
 
 const useAuth = () => {
   const { dispatch, actions, state } = useContext(

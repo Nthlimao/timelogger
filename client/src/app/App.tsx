@@ -1,5 +1,5 @@
 import { ThemeProvider } from "styled-components";
-import { AuthProvider } from "@/shared/contexts/auth";
+import { AuthProvider } from "../shared/contexts/auth";
 import Routes from "./router/Routes";
 
 import "./style.css";

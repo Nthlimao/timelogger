@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import api from "./api";
-import { AuthPayload, AuthResponse } from "@internal-types/Auth";
+import { AuthPayload, AuthResponse } from "@/types/Auth";
 
 export const authLogin = async (
   payload: AuthPayload

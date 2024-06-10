@@ -1,4 +1,4 @@
-import { User } from "@internal-types/User";
+import { User } from "@/types/User";
 
 export enum AuthActionOptions {
   setUser = "SET_USER",
