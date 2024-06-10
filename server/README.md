@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is the API/Backend of our system, responsible for the entire data management process and for providing the essential functionalities for the application.
+**Timelogger** API/Backend, responsible for the entire data management process and for providing the essential functionalities for the application.
 
 The application consists of a time manager for projects, where it is possible to manage projects and their respective tasks. The system offers JWT authentication for security and CRUD functionalities.
 
