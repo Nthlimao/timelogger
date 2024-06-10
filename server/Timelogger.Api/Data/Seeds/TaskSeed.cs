@@ -17,7 +17,8 @@ namespace Timelogger.Api.Data.Seeds
                     TaskTypeId = 1,
                     TaskCategoryId = 1,
                     ProjectId = 1,
-                    UserId = 1
+                    UserId = 1,
+                    Status = 0
                 },
                 new Task
                 {
@@ -26,7 +27,8 @@ namespace Timelogger.Api.Data.Seeds
                     TaskTypeId = 2,
                     TaskCategoryId = 2,
                     ProjectId = 1,
-                    UserId = 1
+                    UserId = 1,
+                    Status = Status.Backlog
 
                 },
                 new Task
@@ -36,7 +38,8 @@ namespace Timelogger.Api.Data.Seeds
                     TaskTypeId = 2,
                     TaskCategoryId = 3,
                     ProjectId = 1,
-                    UserId = 1
+                    UserId = 1,
+                    Status = Status.Backlog
                 },
                 new Task
                 {
@@ -45,7 +48,8 @@ namespace Timelogger.Api.Data.Seeds
                     TaskTypeId = 3,
                     TaskCategoryId = 4,
                     ProjectId = 1,
-                    UserId = 1
+                    UserId = 1,
+                    Status = Status.ToDo
                 },
                 new Task
                 {
@@ -54,7 +58,8 @@ namespace Timelogger.Api.Data.Seeds
                     TaskTypeId = 4,
                     TaskCategoryId = 5,
                     ProjectId = 1,
-                    UserId = 1
+                    UserId = 1,
+                    Status = Status.ToDo
                 },
                 new Task
                 {
@@ -63,7 +68,8 @@ namespace Timelogger.Api.Data.Seeds
                     TaskTypeId = 2,
                     TaskCategoryId = 5,
                     ProjectId = 1,
-                    UserId = 1
+                    UserId = 1,
+                    Status = Status.InProgress
                 },
                 new Task
                 {
@@ -72,7 +78,8 @@ namespace Timelogger.Api.Data.Seeds
                     TaskTypeId = 4,
                     TaskCategoryId = 5,
                     ProjectId = 1,
-                    UserId = 1
+                    UserId = 1,
+                    Status = Status.InProgress
                 },
                 new Task
                 {
@@ -81,7 +88,8 @@ namespace Timelogger.Api.Data.Seeds
                     TaskTypeId = 3,
                     TaskCategoryId = 6,
                     ProjectId = 1,
-                    UserId = 1
+                    UserId = 1,
+                    Status = Status.InReview
                 },
                 new Task
                 {
@@ -90,7 +98,8 @@ namespace Timelogger.Api.Data.Seeds
                     TaskTypeId = 2,
                     TaskCategoryId = 7,
                     ProjectId = 1,
-                    UserId = 1
+                    UserId = 1,
+                    Status = Status.Done
                 },
                 new Task
                 {
@@ -99,7 +108,8 @@ namespace Timelogger.Api.Data.Seeds
                     TaskTypeId = 1,
                     TaskCategoryId = 1,
                     ProjectId = 1,
-                    UserId = 1
+                    UserId = 1,
+                    Status = Status.Done
                 },
                 new Task
                 {
@@ -108,7 +118,8 @@ namespace Timelogger.Api.Data.Seeds
                     TaskTypeId = 2,
                     TaskCategoryId = 2,
                     ProjectId = 1,
-                    UserId = 1
+                    UserId = 1,
+                    Status = Status.InReview
                 },
                 new Task
                 {
@@ -117,7 +128,8 @@ namespace Timelogger.Api.Data.Seeds
                     TaskTypeId = 4,
                     TaskCategoryId = 5,
                     ProjectId = 1,
-                    UserId = 1
+                    UserId = 1,
+                    Status = Status.Canceled
                 }
             ];
         }

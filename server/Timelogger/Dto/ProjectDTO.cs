@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Timelogger.Entities;
+using Timelogger.Enums;
 
 namespace Timelogger.Dto
 {
@@ -15,6 +16,7 @@ namespace Timelogger.Dto
             CustomerId = project.CustomerId;
             Deadline = project.Deadline;
             CustomerId = project.CustomerId;
+            Status = project.Status;
         }
 
         public int Id { get; set; }
@@ -23,6 +25,7 @@ namespace Timelogger.Dto
         public int FreelancerId { get; set; }
         public int CustomerId { get; set; }
         public int TotalTimeSpent { get; set; }
+        public Status Status { get; set; }
         public List<Task> Tasks { get; set; }
     }
 }

@@ -168,9 +168,22 @@ namespace Timelogger.Api.Controllers
 				return NotFound();
 			}
 
+			if (updatedProject.Status == Status.Done)
+			{
+				var onGoingTasks = _context.Tasks
+					.Where(t => t.ProjectId == project.Id && t.Status != Status.Done && t.Status != Status.Canceled).ToList();
+
+				if (onGoingTasks.Count() > 0)
+				{
+					return BadRequest("The Project can't be complete until all tasks have been finished or canceled.");
+				}
+
+			}
+
 			project.Name = updatedProject.Name;
 			project.CustomerId = updatedProject.CustomerId;
 			project.Deadline = updatedProject.Deadline;
+			project.Status = updatedProject.Status;
 
 			_context.Entry(project).State = EntityState.Modified;
 			_context.SaveChanges();

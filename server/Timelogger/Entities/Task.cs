@@ -1,3 +1,5 @@
+using Timelogger.Enums;
+
 namespace Timelogger.Entities
 {
     public class Task
@@ -9,5 +11,6 @@ namespace Timelogger.Entities
         public int UserId { get; set; }
         public int? TaskTypeId { get; set; }
         public int? TaskCategoryId { get; set; }
+        public Status Status { get; set; }
     }
 }

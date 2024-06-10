@@ -38,6 +38,13 @@ namespace Timelogger.Api.Controllers
                 return NotFound();
             }
 
+            var projectStillOpen = project.Status != Status.Done && project.Status != Status.Canceled;
+
+            if (!projectStillOpen)
+            {
+                return BadRequest("It is not allowed to add a new task to a finished project.");
+            }
+
             task.UserId = userId;
 
             _context.Tasks.Add(task);
@@ -180,15 +187,31 @@ namespace Timelogger.Api.Controllers
             }
 
             var project = _context.Projects.Find(task.ProjectId);
+
             if (project == null || project.FreelancerId != userId)
             {
                 return NotFound();
+            }
+
+            var projectStillOpen = project.Status != Status.Done && project.Status != Status.Canceled;
+            var timeSpentChanged = updatedTask.TimeSpent != task.TimeSpent;
+            var statusChanged = updatedTask.Status != task.Status;
+
+            if (!projectStillOpen && timeSpentChanged)
+            {
+                return BadRequest("Task Time Spent can't be changed after the project is finished.");
+            }
+
+            if (!projectStillOpen && statusChanged)
+            {
+                return BadRequest("Task Status can't be changed after the project is finished.");
             }
 
             task.Title = updatedTask.Title;
             task.TimeSpent = updatedTask.TimeSpent;
             task.TaskCategoryId = updatedTask.TaskCategoryId;
             task.TaskTypeId = updatedTask.TaskTypeId;
+            task.Status = updatedTask.Status;
 
             _context.Entry(task).State = EntityState.Modified;
             _context.SaveChanges();

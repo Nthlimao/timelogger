@@ -1,4 +1,5 @@
 ﻿using System;
+using Timelogger.Enums;
 
 namespace Timelogger.Entities
 {
@@ -9,5 +10,6 @@ namespace Timelogger.Entities
         public DateTime? Deadline { get; set; }
         public int FreelancerId { get; set; }
         public int CustomerId { get; set; }
+        public Status Status { get; set; }
     }
 }
