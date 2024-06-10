@@ -44,12 +44,14 @@ namespace Timelogger.Api.Controllers
                 return Unauthorized();
             }
 
-            var user = _context.Users.Find(userIdClaim);
+            var userId = int.Parse(userIdClaim.Value);
+            var user = _context.Users.Find(userId);
 
-            return Ok(new User
+            return Ok(new
             {
-                Name = user.Name,
-                Email = user.Email,
+                user.Name,
+                user.Email,
+                user.Role
             });
         }
 
@@ -88,7 +90,8 @@ namespace Timelogger.Api.Controllers
                 return Unauthorized();
             }
 
-            var user = _context.Users.Find(userIdClaim);
+            var userId = int.Parse(userIdClaim.Value);
+            var user = _context.Users.Find(userId);
 
             if (user == null)
             {
