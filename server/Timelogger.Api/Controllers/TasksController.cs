@@ -23,7 +23,7 @@ namespace Timelogger.Api.Controllers
 
         [Authorize(Policy = "FreelancerOnly")]
         [HttpPost]
-        public ActionResult CreateTask(Task task)
+        public ActionResult CreateTask([FromForm] Task task)
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
             if (userIdClaim == null)
@@ -33,10 +33,12 @@ namespace Timelogger.Api.Controllers
 
             var userId = int.Parse(userIdClaim.Value);
             var project = _context.Projects.Find(task.ProjectId);
+            Console.WriteLine(project);
+            Console.WriteLine(userId);
 
             if (project == null || project.FreelancerId != userId)
             {
-                return NotFound();
+                return NotFound("Projeto não encontrato ao não pertence ao usuário");
             }
 
             var projectStillOpen = project.Status != Status.Done && project.Status != Status.Canceled;
@@ -51,7 +53,7 @@ namespace Timelogger.Api.Controllers
             _context.Tasks.Add(task);
             _context.SaveChanges();
 
-            return Ok(task);
+            return Ok();
         }
 
         [Authorize(Policy = "RequireFreelancerOrCustomer")]

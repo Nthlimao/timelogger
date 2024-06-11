@@ -4,8 +4,9 @@ import { PlusIcon } from "@heroicons/react/16/solid";
 
 import Button from "../../components/Button";
 import Table from "../../components/Table";
-import TaskDetails from "../../sections/TaskDetails";
 import { Data } from "@/components/Table/Table.types";
+import CreateTask from "../../sections/CreateTask";
+import DetailsTask from "../../sections/DetailsTask";
 
 import useProject from "../../shared/hooks/useProject";
 import useTask from "../../shared/hooks/useTask";
@@ -23,6 +24,7 @@ const ProjectPage = () => {
 
   const [selectedTask, setSelectedTask] = useState<Task>();
 
+  const [isCreateTaskOpen, setCreateTaskOpen] = useState<boolean>(false);
   const [pageQueryParams, setPageQueryParams] = useState<PageQueryParams>();
   const [project, setProject] = useState<ProjectDTO>();
   const [tasks, setTasks] = useState<PageResult<Task>>();
@@ -75,8 +77,14 @@ const ProjectPage = () => {
   return (
     <ProjectStyles className="container">
       {selectedTask && (
-        <TaskDetails selectedTask={selectedTask} reloadTasks={fetchTasks} />
+        <DetailsTask selectedTask={selectedTask} reloadTasks={fetchTasks} />
       )}
+      <CreateTask
+        projectId={id?.toString()}
+        isCreateTaskOpen={isCreateTaskOpen}
+        setCreateTaskOpen={setCreateTaskOpen}
+        reloadTasks={fetchTasks}
+      />
       <ProjectPageHeader>
         <h2>{project?.name}</h2>
       </ProjectPageHeader>
@@ -85,7 +93,7 @@ const ProjectPage = () => {
           <h3>Tasks</h3>
           <p>A list of all the task's projects</p>
         </div>
-        <Button>
+        <Button onClick={() => setCreateTaskOpen(true)}>
           <PlusIcon width={18} height={18} /> New Task
         </Button>
       </ProjectPageHeader>

@@ -37,6 +37,16 @@ export const update = async (
   return response;
 };
 
+export const create = async (
+  payload: TaskFormParams,
+  headers: AuthHeaders
+): Promise<AxiosResponse<Task>> => {
+  const response = await api.post<Task>("/tasks/", payload, {
+    headers,
+  });
+  return response;
+};
+
 export const categoriesTask = async (
   headers: AuthHeaders
 ): Promise<AxiosResponse<TaskCategory[]>> => {

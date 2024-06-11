@@ -1,11 +1,7 @@
 import { ReactElement } from "react";
-import SelectFormStyles from "./SelectForm.styles";
 import Badge from "../Badge";
-
-interface SelectOptions {
-  value: string;
-  label: string;
-}
+import { SelectOptions } from "@/shared/types/Form";
+import SelectFormStyles from "./SelectForm.styles";
 
 interface ISelectForm {
   id: string;

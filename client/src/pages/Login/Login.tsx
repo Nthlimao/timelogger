@@ -4,8 +4,9 @@ import InputForm from "../../components/InputForm";
 import Button from "../../components/Button";
 
 import useAuth from "../../shared/hooks/useAuth";
-import useForm, { InputValidations } from "../../shared/hooks/useForm";
+import useForm from "../../shared/hooks/useForm";
 import { AuthPayload } from "@/shared/types/Auth";
+import { InputValidations } from "@/shared/types/Form";
 
 import LoginStyles, { LoginBox, LoginTitle, UserIcon } from "./Login.styles";
 

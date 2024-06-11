@@ -1,25 +1,10 @@
 import { useState } from "react";
-
-export interface ValidationRules {
-  required?: boolean;
-  minLength?: number;
-  maxLength?: number;
-  pattern?: "email";
-}
-
-type ValidationRulesName = "required" | "minLength" | "maxLength" | "email";
-
-interface InputValues {
-  [key: string]: string;
-}
-
-export interface InputValidations {
-  [key: string]: ValidationRules;
-}
-
-interface InputError {
-  [key: string]: string;
-}
+import {
+  InputError,
+  InputValidations,
+  InputValues,
+  ValidationRulesName,
+} from "../types/Form";
 
 const useForm = (initialState: InputValues, validations: InputValidations) => {
   const [values, setValues] = useState<InputValues>(initialState);

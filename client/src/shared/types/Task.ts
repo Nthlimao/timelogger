@@ -31,4 +31,5 @@ export type TaskFormParams = {
   taskTypeId?: string;
   timeSpent: string;
   title: string;
+  projectId?: string;
 };

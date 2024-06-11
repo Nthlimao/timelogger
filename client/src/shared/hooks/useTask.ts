@@ -3,6 +3,7 @@ import axios from "axios";
 import useAuth from "./useAuth";
 import {
   categoriesTask,
+  create,
   task,
   tasks,
   typesTask,
@@ -113,12 +114,31 @@ const useTask = () => {
     }
   };
 
+  const createTask = async (
+    payload: TaskFormParams
+  ): Promise<boolean | undefined> => {
+    try {
+      const response = await create(
+        formatTaskForm(payload),
+        getAuthenticatedHeaders(token)
+      );
+      if (!axios.isAxiosError(response) && response.status === 200) {
+        return true;
+      } else {
+        alert(`Error: ${response.statusText}`);
+      }
+    } catch (err) {
+      alert(`Error: ${err}`);
+    }
+  };
+
   return {
     getProjectTasks,
     getTaskDetails,
     getTaskCategories,
     getTaskTypes,
     updateTask,
+    createTask,
   };
 };
 
