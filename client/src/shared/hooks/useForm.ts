@@ -76,7 +76,7 @@ const useForm = (initialState: InputValues, validations: InputValidations) => {
       const rules = validations[name];
 
       if (rules) {
-        if (rules.required && !value) {
+        if (rules.required && !value && value === "") {
           valid = false;
           newErrors[name] = getErrorMessage("required");
         } else if (rules.minLength && value.length < rules.minLength) {
@@ -102,13 +102,21 @@ const useForm = (initialState: InputValues, validations: InputValidations) => {
     return valid;
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+  const handleChange = (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const { name, value, tagName } = event.target;
 
     setValues((prev) => ({
-      ...values,
+      ...prev,
       [name]: value,
     }));
+
+    if (tagName === "SELECT") {
+      validateField(name, value);
+    }
   };
 
   const resetForm = () => {

@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 
-interface IInputFormStyles {
+interface ISelectFormStyles {
   error?: boolean;
 }
 
-const InputFormStyles = styled.div<IInputFormStyles>`
+const SelectFormStyles = styled.div<ISelectFormStyles>`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -19,12 +19,12 @@ const InputFormStyles = styled.div<IInputFormStyles>`
     margin-bottom: 10px;
   }
 
-  input {
+  select {
     color: #111827;
     font-family: "Inter", sans-serif;
     font-size: 13px;
     padding: 5px 8px;
-    height: 26px;
+    height: 36px;
     border: none;
     border-radius: 4px;
 
@@ -44,4 +44,4 @@ const InputFormStyles = styled.div<IInputFormStyles>`
   }
 `;
 
-export default InputFormStyles;
+export default SelectFormStyles;

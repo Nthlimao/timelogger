@@ -2,7 +2,7 @@ import axios from "axios";
 
 import useAuth from "./useAuth";
 import { ProjectDTO } from "@/types/Project";
-import { projects } from "../services/project.services";
+import { project, projects } from "../services/project.services";
 import { PageQueryParams, PageResult } from "../types/PagedResult";
 import { convertMsToTimeString } from "../utils/dateUtils";
 
@@ -35,8 +35,22 @@ const useProject = () => {
     }
   };
 
+  const getProjectDetails = async (id: string) => {
+    try {
+      const response = await project(id, getAuthenticatedHeaders(token));
+      if (!axios.isAxiosError(response) && response.data) {
+        return response.data;
+      } else {
+        console.log(response);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return {
     getProjects,
+    getProjectDetails,
   };
 };
 

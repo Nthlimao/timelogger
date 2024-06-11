@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -105,7 +106,8 @@ namespace Timelogger.Api.Controllers
                             PageNumber = 0,
                             PageSize = 0,
                             TotalPages = 0,
-                            TotalItems = 0
+                            TotalItems = 0,
+                            Columns = []
                         }
                     );
                 }
@@ -130,13 +132,14 @@ namespace Timelogger.Api.Controllers
             var tasks = queryTasks.ToList();
 
             return Ok(
-                new PagedResultDTO<Task>
+                new PagedResultDTO<TaskDTO>
                 {
-                    Items = tasks,
+                    Items = UpdateTasksWithCategoryAndType(tasks),
                     PageNumber = page,
                     PageSize = limit,
                     TotalPages = totalPages,
-                    TotalItems = totalItems
+                    TotalItems = totalItems,
+                    Columns = GetTasksColumns()
                 }
             );
         }
@@ -165,12 +168,16 @@ namespace Timelogger.Api.Controllers
                 return NotFound();
             }
 
-            return Ok(task);
+            return Ok(new TaskDTO(task)
+            {
+                Category = GetTaskCategory(task.TaskCategoryId),
+                Type = GetTaskType(task.TaskTypeId),
+            });
         }
 
         [Authorize(Policy = "FreelancerOnly")]
         [HttpPut("{id}")]
-        public ActionResult UpdateTask(int id, Task updatedTask)
+        public ActionResult UpdateTask(int id, [FromForm] Task updatedTask)
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
             if (userIdClaim == null)
@@ -216,7 +223,7 @@ namespace Timelogger.Api.Controllers
             _context.Entry(task).State = EntityState.Modified;
             _context.SaveChanges();
 
-            return Ok(task);
+            return Ok();
         }
 
         [Authorize(Policy = "FreelancerOnly")]
@@ -300,6 +307,86 @@ namespace Timelogger.Api.Controllers
             }
 
             return query;
+        }
+        private TaskCategory GetTaskCategory(int? id)
+        {
+            if (id == null)
+            {
+                return new TaskCategory { };
+            }
+            var category = _context.TaskCategories
+                .Find(id);
+
+            return category;
+        }
+
+        private TaskType GetTaskType(int? id)
+        {
+            if (id == null)
+            {
+                return new TaskType { };
+            }
+            var type = _context.TaskTypes
+                .Find(id);
+
+            return type;
+        }
+
+        private List<TaskDTO> UpdateTasksWithCategoryAndType(List<Task> tasks)
+        {
+            if (tasks == null || tasks.Count == 0)
+            {
+                return [];
+            }
+
+            var tasksDTOs = new List<TaskDTO>();
+
+            foreach (Task task in tasks)
+            {
+                var taskDTO = new TaskDTO(task)
+                {
+                    Category = GetTaskCategory(task.TaskCategoryId),
+                    Type = GetTaskType(task.TaskTypeId),
+
+                };
+
+                tasksDTOs.Add(taskDTO);
+
+            }
+
+            return tasksDTOs;
+        }
+
+        private List<PagedColumnsDTO> GetTasksColumns()
+        {
+            return [
+                new PagedColumnsDTO {
+                    Id = "title",
+                    Header = "Title",
+                    HasSort = true
+                },
+                new PagedColumnsDTO {
+                    Id = "statusName",
+                    Header = "Status",
+                    HasSort = false
+                },
+                new PagedColumnsDTO {
+                    Id = "categoryName",
+                    Header = "Category",
+                    HasSort = false
+                },
+                new PagedColumnsDTO {
+                    Id = "typeName",
+                    Header = "Type",
+                    HasSort = false
+                },
+                new PagedColumnsDTO {
+                    Id = "timeSpent",
+                    Header = "TimeSpent",
+                    HasSort = true
+                },
+
+            ];
         }
     }
 }

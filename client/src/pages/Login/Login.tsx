@@ -21,13 +21,14 @@ const LoginPage = (): ReactElement => {
     password: { required: true },
   };
 
-  const { values, errors, isValid, handleChange, validateField, resetForm } =
-    useForm(initialForm, validationsForm);
+  const { values, errors, isValid, handleChange, validateField } = useForm(
+    initialForm,
+    validationsForm
+  );
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (isValid(true)) {
-      console.log("Formulário submetido:", values as AuthPayload);
       login(values as AuthPayload);
     } else {
       alert("Formulário inválido");

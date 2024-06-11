@@ -6,6 +6,7 @@ interface IButton {
   type?: "submit" | "reset" | "button";
   size?: "small" | "normal" | "large";
   isDisabled?: boolean;
+  onClick?: () => void;
 }
 
 const Button = ({
@@ -13,9 +14,15 @@ const Button = ({
   type,
   size = "normal",
   isDisabled = false,
+  onClick,
 }: IButton): ReactElement => {
   return (
-    <ButtonStyles type={type} size={size} disabled={isDisabled}>
+    <ButtonStyles
+      type={type}
+      size={size}
+      disabled={isDisabled}
+      onClick={onClick}
+    >
       {children}
     </ButtonStyles>
   );

@@ -5,6 +5,7 @@ import ProtectedRoute from "./Protected";
 import IndexPage from "../../pages/Index";
 import LoginPage from "../../pages/Login";
 import ProjectsPage from "../../pages/Projects";
+import ProjectPage from "../../pages/Project";
 import MainLayout from "../../components/MainLayout";
 
 const Routes = (): ReactElement => {
@@ -20,6 +21,7 @@ const Routes = (): ReactElement => {
                 <ReactRoutes>
                   <Route path="/" element={<IndexPage />} />
                   <Route path="/projects" element={<ProjectsPage />} />
+                  <Route path="/projects/:id" element={<ProjectPage />} />
                 </ReactRoutes>
               </MainLayout>
             </ProtectedRoute>

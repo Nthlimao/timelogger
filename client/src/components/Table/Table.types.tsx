@@ -16,6 +16,7 @@ export interface TableProps {
   data: Data[];
   pagination?: PagePagination;
   handlePagination?: (page: number) => void;
+  handleItemPage?: (item: Data) => void;
   handleSort?: (
     sortDirection: PageQueryParams["sortDirection"],
     sortBy: PageQueryParams["sortBy"]

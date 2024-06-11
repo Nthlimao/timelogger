@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { PlusIcon } from "@heroicons/react/16/solid";
 
 import Button from "../../components/Button";
@@ -8,8 +9,10 @@ import ProjectsStyles, { ProjectsPageHeader } from "./Projects.styles";
 import { useEffect, useState } from "react";
 import { ProjectDTO } from "@/shared/types/Project";
 import { PageQueryParams, PageResult } from "@/shared/types/PagedResult";
+import { Data } from "@/components/Table/Table.types";
 
 const ProjectsPage = () => {
+  const navigate = useNavigate();
   const [pagedProjects, setPagedProjects] = useState<PageResult<ProjectDTO>>();
   const [pageQueryParams, setPageQueryParams] = useState<PageQueryParams>();
 
@@ -17,7 +20,6 @@ const ProjectsPage = () => {
 
   const fetchProjects = async (params?: PageQueryParams) => {
     const projects = await getProjects(params);
-    console.log(projects);
     if (projects) setPagedProjects(projects);
   };
 
@@ -34,6 +36,10 @@ const ProjectsPage = () => {
       sortDirection,
       sortBy,
     }));
+  };
+
+  const handleNextPage = (item: Data) => {
+    navigate(`/projects/${item.id}`);
   };
 
   useEffect(() => {
@@ -62,6 +68,7 @@ const ProjectsPage = () => {
             data={pagedProjects.items}
             handleSort={handleChangeSort}
             handlePagination={handleChangePage}
+            handleItemPage={handleNextPage}
             pagination={{
               totalItems: pagedProjects.totalItems,
               totalPages: pagedProjects.totalPages,

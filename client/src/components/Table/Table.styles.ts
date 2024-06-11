@@ -32,6 +32,12 @@ export const TableBody = styled.tbody`
   td {
     padding: 14px 20px;
   }
+
+  a {
+    text-decoration: underline;
+    font-weight: 500;
+    cursor: pointer;
+  }
 `;
 
 export const TableFooter = styled.div`

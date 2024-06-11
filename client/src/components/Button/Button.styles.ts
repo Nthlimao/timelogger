@@ -17,6 +17,7 @@ const ButtonStyles = styled.button<IButtonStyles>`
   border-radius: 4px;
   color: #0f172a;
   background-color: #7dd3fc;
+  text-align: center;
 
   &:disabled,
   &:disabled:hover {
@@ -38,6 +39,8 @@ const ButtonStyles = styled.button<IButtonStyles>`
         `;
       case "large":
         return css`
+          display: flex;
+          justify-content: center;
           letter-spacing: -0.7875px;
           font-size: 16px;
           padding: 12px 8px;

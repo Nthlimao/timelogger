@@ -1,5 +1,3 @@
-import { Task } from "./Task";
-
 export enum Status {
   Backlog = 0,
   ToDo = 1,
@@ -8,6 +6,15 @@ export enum Status {
   Done = 4,
   Canceled = 5,
 }
+
+export const statusOptions = [
+  { label: "Backlog", value: Status.Backlog.toString() },
+  { label: "To Do", value: Status.ToDo.toString() },
+  { label: "In Progress", value: Status.InProgress.toString() },
+  { label: "In Review", value: Status.InReview.toString() },
+  { label: "Done", value: Status.Done.toString() },
+  { label: "Canceled", value: Status.Canceled.toString() },
+];
 
 export type Project = {
   id: number;
@@ -20,5 +27,4 @@ export type Project = {
 
 export type ProjectDTO = Project & {
   totalTimeSpent: number | string;
-  tasks?: Task[];
 };

@@ -122,11 +122,9 @@ namespace Timelogger.Api.Controllers
 			}
 
 			var project = queryProject.First();
-			var tasks = _context.Tasks.Where(t => t.ProjectId == project.Id).ToList();
 
 			return Ok(new ProjectDTO(project)
 			{
-				Tasks = tasks,
 				TotalTimeSpent = GetTotalTimeSpent(project)
 			});
 		}

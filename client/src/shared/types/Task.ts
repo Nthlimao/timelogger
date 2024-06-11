@@ -6,18 +6,29 @@ export type TaskCategory = {
 };
 
 export type TaskType = {
-  id: number;
+  id: string;
   name: string;
   icon?: string;
 };
 
+export type TaskData = { categoryName?: string; typeName?: string };
+
 export type Task = {
   id: number;
   title: string;
-  timeSpent: number;
+  timeSpent: string;
   projectId: number;
   userId: number;
-  taskTypeId?: number;
-  taskCategoryId?: number;
   status: Status;
+  statusName?: string;
+  category?: TaskCategory;
+  type?: TaskType;
+} & TaskData;
+
+export type TaskFormParams = {
+  status: string;
+  taskCategoryId?: string;
+  taskTypeId?: string;
+  timeSpent: string;
+  title: string;
 };

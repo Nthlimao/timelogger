@@ -14,3 +14,13 @@ export const projects = async (
   });
   return response;
 };
+
+export const project = async (
+  id: string,
+  headers: AuthHeaders
+): Promise<AxiosResponse<ProjectDTO>> => {
+  const response = await api.get<ProjectDTO>(`/projects/${id}`, {
+    headers,
+  });
+  return response;
+};

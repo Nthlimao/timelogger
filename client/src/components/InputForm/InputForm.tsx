@@ -8,7 +8,7 @@ interface IInputForm {
   label?: string;
   value: string;
   placeholder?: string;
-  type?: "text" | "email" | "password";
+  type?: "text" | "email" | "password" | "number";
   error?: string;
   handleChange?: React.ChangeEventHandler<HTMLInputElement>;
   handleBlur?: React.FocusEventHandler<HTMLInputElement>;
