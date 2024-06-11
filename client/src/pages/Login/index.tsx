@@ -1,5 +1,1 @@
-const LoginPage = () => {
-  return <>Login</>;
-};
-
-export default LoginPage;
+export { default } from "./Login";

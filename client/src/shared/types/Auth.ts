@@ -7,9 +7,8 @@ export type AuthPayload = {
 
 export type AuthResponse = {
   token: string;
-  user: {
-    name: string;
-    email: string;
-    role: Role;
-  };
+};
+
+export type AuthHeaders = {
+  Authorization?: string;
 };

@@ -82,7 +82,7 @@ namespace Timelogger.Api.Controllers
 
         [HttpPut]
         [Route("change-password")]
-        public ActionResult UpdatePassword(UpdatePasswordDTO formPassword)
+        public ActionResult UpdatePassword([FromForm] UpdatePasswordDTO formPassword)
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
             if (userIdClaim == null)

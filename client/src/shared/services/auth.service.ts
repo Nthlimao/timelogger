@@ -5,6 +5,6 @@ import { AuthPayload, AuthResponse } from "@/types/Auth";
 export const authLogin = async (
   payload: AuthPayload
 ): Promise<AxiosResponse<AuthResponse>> => {
-  const response = await api.post<AuthResponse>("/users/details", payload);
+  const response = await api.post<AuthResponse>("/auth/login", payload);
   return response;
 };

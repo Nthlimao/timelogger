@@ -25,7 +25,7 @@ namespace Timelogger.Api.Controllers
 
         [HttpPost]
         [Route("login")]
-        public IActionResult Login(UserAuthDTO payload)
+        public ActionResult Login([FromForm] UserAuthDTO payload)
         {
             var user = _context.Users.SingleOrDefault(u =>
                 u.Email == payload.Email && u.Password == payload.Password

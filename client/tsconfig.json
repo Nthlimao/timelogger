@@ -21,7 +21,8 @@
       "@/types/*": ["src/shared/types/*"],
       "@/contexts/*": ["src/shared/contexts/*"],
       "@/hooks/*": ["src/shared/hooks/*"],
-      "@/services/*": ["src/shared/services/*"]
+      "@/services/*": ["src/shared/services/*"],
+      "@/components/*": ["src/components/*"]
     }
   },
   "include": ["src"]
