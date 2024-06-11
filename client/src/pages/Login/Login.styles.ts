@@ -7,7 +7,6 @@ const LoginStyles = styled.div`
   height: 100vh;
   align-items: center;
   justify-content: center;
-  background-color: #0f172a;
 `;
 
 export const LoginBox = styled.div`

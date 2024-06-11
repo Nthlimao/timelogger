@@ -59,7 +59,7 @@ namespace Timelogger.Api.Controllers
                 issuer: _configuration["Auth:Jwt:Issuer"],
                 audience: _configuration["Auth:Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(90),
+                expires: DateTime.Now.AddMinutes(720),
                 signingCredentials: credentials
             );
 

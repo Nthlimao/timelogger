@@ -1,12 +1,18 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-const ButtonStyles = styled.button`
+interface IButtonStyles {
+  size?: "small" | "normal" | "large";
+}
+
+const ButtonStyles = styled.button<IButtonStyles>`
+  display: flex;
+  align-items: center;
   width: 100%;
   font-family: "Inter", sans-serif;
-  letter-spacing: -0.7875px;
-  font-size: 16px;
+  letter-spacing: -0.5px;
+  font-size: 12.25px;
   font-weight: 700;
-  padding: 12px 8px;
+  padding: 7px 10.5px;
   border: none;
   border-radius: 4px;
   color: #0f172a;
@@ -21,6 +27,26 @@ const ButtonStyles = styled.button`
   &:hover {
     opacity: 0.9;
     cursor: pointer;
+  }
+
+  ${({ size }) => {
+    switch (size) {
+      case "small":
+        return css`
+          font-size: 10px;
+          padding: 2px 4px;
+        `;
+      case "large":
+        return css`
+          letter-spacing: -0.7875px;
+          font-size: 16px;
+          padding: 12px 8px;
+        `;
+    }
+  }}
+
+  svg {
+    margin-right: 6px;
   }
 `;
 

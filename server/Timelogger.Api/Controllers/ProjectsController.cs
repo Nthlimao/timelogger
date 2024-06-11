@@ -59,7 +59,8 @@ namespace Timelogger.Api.Controllers
 					PageNumber = 0,
 					PageSize = 0,
 					TotalPages = 0,
-					TotalItems = 0
+					TotalItems = 0,
+					Columns = []
 				});
 			}
 
@@ -83,11 +84,12 @@ namespace Timelogger.Api.Controllers
 
 			return Ok(new PagedResultDTO<ProjectDTO>
 			{
-				Items = UpdateProjectsWithTimeSpent(projects),
+				Items = UpdateProjectsWithTimeSpentAndCustomer(projects),
 				PageNumber = page,
 				PageSize = limit,
 				TotalPages = totalPages,
-				TotalItems = totalItems
+				TotalItems = totalItems,
+				Columns = GetProjectsColumns()
 			});
 		}
 
@@ -223,7 +225,7 @@ namespace Timelogger.Api.Controllers
 			return NoContent();
 		}
 
-		private List<ProjectDTO> UpdateProjectsWithTimeSpent(List<Project> projects)
+		private List<ProjectDTO> UpdateProjectsWithTimeSpentAndCustomer(List<Project> projects)
 		{
 			if (projects == null || projects.Count == 0)
 			{
@@ -236,7 +238,8 @@ namespace Timelogger.Api.Controllers
 			{
 				var projectDTO = new ProjectDTO(project)
 				{
-					TotalTimeSpent = GetTotalTimeSpent(project)
+					TotalTimeSpent = GetTotalTimeSpent(project),
+					Customer = GetCustomerName(project.CustomerId)
 				};
 
 				projectDTOs.Add(projectDTO);
@@ -284,6 +287,39 @@ namespace Timelogger.Api.Controllers
 			}
 
 			return query;
+		}
+
+		private List<PagedColumnsDTO> GetProjectsColumns()
+		{
+			return [
+				new PagedColumnsDTO {
+					Id = "name",
+					Header = "Name",
+					HasSort = true
+				},
+				new PagedColumnsDTO {
+					Id = "deadline",
+					Header = "Deadline",
+					HasSort = true
+				},
+				new PagedColumnsDTO {
+					Id = "totalTimeSpent",
+					Header = "TotalTimeSpent",
+					HasSort = false
+				},
+				new PagedColumnsDTO {
+					Id = "customer",
+					Header = "Customer",
+					HasSort = false
+				},
+
+			];
+		}
+
+		private string GetCustomerName(int customerId)
+		{
+			var user = _context.Users.Find(customerId);
+			return user.Name;
 		}
 	}
 }

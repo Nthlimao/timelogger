@@ -1,10 +1,12 @@
 import styled, { css } from "styled-components";
 
 interface IBadgeStyles {
+  size?: "small" | "normal" | "large";
   appearance?: "error" | "alert" | "success" | "info";
 }
 
-const BadgeStyles = styled.button<IBadgeStyles>`
+const BadgeStyles = styled.div<IBadgeStyles>`
+  display: inline-block;
   align-self: flex-end;
   font-family: "Inter", sans-serif;
   letter-spacing: -0.2px;
@@ -39,6 +41,18 @@ const BadgeStyles = styled.button<IBadgeStyles>`
           border-color: #60a5fa4d;
           color: #60a5fa;
         `;
+    }
+  }}
+
+  ${({ size }) => {
+    switch (size) {
+      case "small":
+        return css`
+          font-size: 10px;
+          padding: 2px 4px;
+        `;
+      case "large":
+        return css``;
     }
   }}
 `;

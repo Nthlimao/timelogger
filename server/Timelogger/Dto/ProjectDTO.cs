@@ -27,5 +27,6 @@ namespace Timelogger.Dto
         public int TotalTimeSpent { get; set; }
         public Status Status { get; set; }
         public List<Task> Tasks { get; set; }
+        public string Customer { get; set; }
     }
 }

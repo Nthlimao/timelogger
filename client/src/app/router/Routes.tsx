@@ -4,6 +4,8 @@ import ProtectedRoute from "./Protected";
 
 import IndexPage from "../../pages/Index";
 import LoginPage from "../../pages/Login";
+import ProjectsPage from "../../pages/Projects";
+import MainLayout from "../../components/MainLayout";
 
 const Routes = (): ReactElement => {
   return (
@@ -11,10 +13,15 @@ const Routes = (): ReactElement => {
       <ReactRoutes>
         <Route path="/login" element={<LoginPage />} />
         <Route
-          path="/"
+          path="/*"
           element={
             <ProtectedRoute>
-              <IndexPage />
+              <MainLayout>
+                <ReactRoutes>
+                  <Route path="/" element={<IndexPage />} />
+                  <Route path="/projects" element={<ProjectsPage />} />
+                </ReactRoutes>
+              </MainLayout>
             </ProtectedRoute>
           }
         />

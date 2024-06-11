@@ -62,7 +62,7 @@ const LoginPage = (): ReactElement => {
             handleBlur={() => validateField("password", values.password)}
           />
           <br />
-          <Button type="submit" isDisabled={!isValid()}>
+          <Button type="submit" isDisabled={!isValid()} size="large">
             Sign in
           </Button>
         </form>

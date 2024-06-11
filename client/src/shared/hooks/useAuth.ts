@@ -15,7 +15,7 @@ const useAuth = () => {
   ) as AuthContextType;
   const { setToken: ctxSetToken, setUser: ctxSetUser } = actions;
 
-  const getAuthenticatedHeaders = (t: string): AuthHeaders => ({
+  const getAuthenticatedHeaders = (t?: string): AuthHeaders => ({
     Authorization: `Bearer ${t}`,
   });
 
@@ -54,6 +54,7 @@ const useAuth = () => {
     setToken,
     setUser,
     login,
+    getAuthenticatedHeaders,
     ...state,
   };
 };

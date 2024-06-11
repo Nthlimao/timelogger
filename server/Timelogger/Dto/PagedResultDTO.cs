@@ -10,5 +10,6 @@ namespace Timelogger.Dto
         public int PageSize { get; set; }
         public int TotalPages { get; set; }
         public int TotalItems { get; set; }
+        public List<PagedColumnsDTO> Columns { get; set; }
     }
 }
