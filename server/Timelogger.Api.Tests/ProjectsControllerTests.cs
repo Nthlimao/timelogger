@@ -157,18 +157,7 @@ public class ProjectsControllerTests
         };
 
         var result = _controller.CreateProject(newProject);
-        Assert.That(result, Is.TypeOf(typeof(OkObjectResult)));
-
-        var okResult = (OkObjectResult)result;
-        Assert.That(okResult.Value, Is.TypeOf(typeof(Project)));
-
-        var projectResult = (Project)okResult.Value;
-
-        Assert.That(projectResult.Id, Is.EqualTo(13));
-        Assert.That(projectResult.Name, Is.EqualTo("Project 013"));
-        Assert.That(projectResult.FreelancerId, Is.EqualTo(1));
-        Assert.That(projectResult.CustomerId, Is.EqualTo(3));
-        Assert.That(projectResult.Deadline, Is.EqualTo(new DateTime(2024, 08, 12)));
+        Assert.That(result, Is.TypeOf(typeof(OkResult)));
 
         var resultProjects = _controller.GetProjects();
         var okResultProjects = (OkObjectResult)resultProjects;
@@ -217,18 +206,7 @@ public class ProjectsControllerTests
         };
 
         var result = _controller.UpdateProject(1, changedProject);
-        Assert.That(result, Is.TypeOf(typeof(OkObjectResult)));
-
-        var okResult = (OkObjectResult)result;
-        Assert.That(okResult.Value, Is.TypeOf(typeof(Project)));
-
-        var projectResult = (Project)okResult.Value;
-
-        Assert.That(projectResult.Id, Is.EqualTo(1));
-        Assert.That(projectResult.Name, Is.EqualTo("Project 001 Updated"));
-        Assert.That(projectResult.FreelancerId, Is.EqualTo(1));
-        Assert.That(projectResult.CustomerId, Is.EqualTo(3));
-        Assert.That(projectResult.Deadline, Is.EqualTo(new DateTime(2024, 08, 13)));
+        Assert.That(result, Is.TypeOf(typeof(OkResult)));
     }
 
     [Test]

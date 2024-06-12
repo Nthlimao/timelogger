@@ -72,9 +72,9 @@ public class TasksControllerTests
         Assert.That(result, Is.TypeOf(typeof(OkObjectResult)));
 
         var okResult = (OkObjectResult)result;
-        Assert.That(okResult.Value, Is.TypeOf(typeof(PagedResultDTO<Task>)));
+        Assert.That(okResult.Value, Is.TypeOf(typeof(PagedResultDTO<TaskDTO>)));
 
-        var pagedResult = (PagedResultDTO<Task>)okResult.Value;
+        var pagedResult = (PagedResultDTO<TaskDTO>)okResult.Value;
 
         Assert.That(pagedResult.Items.Count, Is.EqualTo(10));
         Assert.That(pagedResult.Items[0].Id, Is.EqualTo(1));
@@ -90,7 +90,7 @@ public class TasksControllerTests
     }
 
     [Test]
-    public void GetTask_AuthorizedUser_ReturnsProject()
+    public void GetTask_AuthorizedUser_ReturnsTasks()
     {
         SetUserClaims("1", Role.Freelancer.ToString());
 
@@ -98,15 +98,13 @@ public class TasksControllerTests
         Assert.That(result, Is.TypeOf(typeof(OkObjectResult)));
 
         var okResult = (OkObjectResult)result;
-        Assert.That(okResult.Value, Is.TypeOf(typeof(Task)));
+        Assert.That(okResult.Value, Is.TypeOf(typeof(TaskDTO)));
 
-        var taskResult = (Task)okResult.Value;
+        var taskResult = (TaskDTO)okResult.Value;
 
         Assert.That(taskResult.Id, Is.EqualTo(1));
         Assert.That(taskResult.Title, Is.EqualTo("Requirement Analysis"));
         Assert.That(taskResult.ProjectId, Is.EqualTo(1));
-        Assert.That(taskResult.TaskTypeId, Is.EqualTo(1));
-        Assert.That(taskResult.TaskCategoryId, Is.EqualTo(1));
         Assert.That(taskResult.TimeSpent, Is.EqualTo(7200000));
     }
 
@@ -137,26 +135,13 @@ public class TasksControllerTests
         };
 
         var result = _controller.CreateTask(newTask);
-        Assert.That(result, Is.TypeOf(typeof(OkObjectResult)));
-
-        var okResult = (OkObjectResult)result;
-        Assert.That(okResult.Value, Is.TypeOf(typeof(Task)));
-
-        var taskResult = (Task)okResult.Value;
-
-        Assert.That(taskResult.Id, Is.EqualTo(13));
-        Assert.That(taskResult.Title, Is.EqualTo("Creation Task"));
-        Assert.That(taskResult.UserId, Is.EqualTo(1));
-        Assert.That(taskResult.TaskTypeId, Is.EqualTo(1));
-        Assert.That(taskResult.TaskCategoryId, Is.EqualTo(1));
-        Assert.That(taskResult.ProjectId, Is.EqualTo(1));
-        Assert.That(taskResult.TimeSpent, Is.EqualTo(0));
+        Assert.That(result, Is.TypeOf(typeof(OkResult)));
 
         var resultTasks = _controller.GetTasks(1);
         var okResultTasks = (OkObjectResult)resultTasks;
-        var pagedResultProjects = (PagedResultDTO<Task>)okResultTasks.Value;
+        var pagedResultTasks = (PagedResultDTO<TaskDTO>)okResultTasks.Value;
 
-        Assert.That(pagedResultProjects.TotalItems, Is.EqualTo(13));
+        Assert.That(pagedResultTasks.TotalItems, Is.EqualTo(13));
     }
 
     [Test]
@@ -170,7 +155,7 @@ public class TasksControllerTests
     }
 
     [Test]
-    public void UpdateProject_AuthorizedUser_NonOwnerProject_ReturnsNotFound()
+    public void UpdateTask_AuthorizedUser_NonOwnerProject_ReturnsNotFound()
     {
         SetUserClaims("2", Role.Freelancer.ToString());
 
@@ -181,7 +166,7 @@ public class TasksControllerTests
     }
 
     [Test]
-    public void UpdateProject_AuthorizedUser()
+    public void UpdateTask_AuthorizedUser()
     {
         SetUserClaims("1", Role.Freelancer.ToString());
 
@@ -194,19 +179,10 @@ public class TasksControllerTests
         };
 
         var result = _controller.UpdateTask(1, changedTask);
-        Assert.That(result, Is.TypeOf(typeof(OkObjectResult)));
+        Assert.That(result, Is.TypeOf(typeof(OkResult)));
 
-        var okResult = (OkObjectResult)result;
-        Assert.That(okResult.Value, Is.TypeOf(typeof(Task)));
 
-        var resultTask = (Task)okResult.Value;
 
-        Assert.That(resultTask.Id, Is.EqualTo(1));
-        Assert.That(resultTask.Title, Is.EqualTo("Task Updated"));
-        Assert.That(resultTask.UserId, Is.EqualTo(1));
-        Assert.That(resultTask.TimeSpent, Is.EqualTo(2000));
-        Assert.That(resultTask.TaskTypeId, Is.EqualTo(2));
-        Assert.That(resultTask.TaskCategoryId, Is.EqualTo(3));
     }
 
     [Test]
@@ -219,7 +195,7 @@ public class TasksControllerTests
     }
 
     [Test]
-    public void DeleteProject_AuthorizedUser_NonOwnerProject_ReturnsNotFound()
+    public void DeleteTask_AuthorizedUser_NonOwnerProject_ReturnsNotFound()
     {
         SetUserClaims("2", Role.Freelancer.ToString());
         var result = _controller.DeleteTask(1);
@@ -228,7 +204,7 @@ public class TasksControllerTests
     }
 
     [Test]
-    public void DeleteProject_AuthorizedUser_ReturnsNotContent()
+    public void DeleteTask_AuthorizedUser_ReturnsNotContent()
     {
         SetUserClaims("1", Role.Freelancer.ToString());
         var result = _controller.DeleteTask(13);
