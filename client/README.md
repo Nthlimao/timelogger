@@ -54,7 +54,7 @@ To access the authenticated areas you need to log in to the application, but we 
 | free001@email.com     | freelancer | Freelancer |
 | free002@email.com     | freelancer | Freelancer |
 | customer001@email.com | customer1  | Customer   |
-| customer002@email.com | customer1  | Customer   |
+| customer002@email.com | customer2  | Customer   |
 
 ## Testing
 
