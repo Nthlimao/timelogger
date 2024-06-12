@@ -77,9 +77,9 @@ For more detailed information on each component, **Front-end** and **Back-end**,
 
 The entire project was developed on the basis of a challenge issued by the e-conomic team as part of the recruitment process. Let's review the objective points proposed by the team.
 
-- [] As a freelancer I want to be able to register how I spend time on my projects, so that I can provide my customers with an overview of my work.
-- [] As a freelancer I want to be able to get an overview of my time registrations per project, so that I can create correct invoices for my customers.
-- [] As a freelancer I want to be able to sort my projects by their deadline, so that I can prioritise my work.
+- [ ] As a freelancer I want to be able to register how I spend time on my projects, so that I can provide my customers with an overview of my work.
+- [ ] As a freelancer I want to be able to get an overview of my time registrations per project, so that I can create correct invoices for my customers.
+- [ ] As a freelancer I want to be able to sort my projects by their deadline, so that I can prioritise my work.
 
 
 Thanks to everyone and it was a very nice challenge. 🎉
