@@ -43,6 +43,19 @@ To prepare the environment and run the application, follow the instructions belo
 
 After the application is running, it will available at http://localhost:3000.
 
+## Using the application
+
+To access the authenticated areas you need to log in to the application, but we don't have a registration area, so here are some available credentials.
+
+### Available Credentials
+
+| Email                 | Password   | Role       |
+| --------------------- | ---------- | ---------- |
+| free001@email.com     | freelancer | Freelancer |
+| free002@email.com     | freelancer | Freelancer |
+| customer001@email.com | customer1  | Customer   |
+| customer002@email.com | customer1  | Customer   |
+
 ## Testing
 
 After prepare the environment (following the steps above), run the command `npm run test` to run the tests.
