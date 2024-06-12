@@ -1,57 +1,85 @@
-# e-conomic & sproom hiring task
+# Timelogger ⏲️
 
-As a part of the e-conomic/sproom recruitment process we ask our candidates to complete a practical development challenge. The challenge consists of two parts:
+## Overview
 
-1. You solve the provided task, and send the results to us.
-2. We host a session where you present your solution to us, and we all have a nice talk about it.
+Timelogger is an application that manages projects and their respective tasks. With its main focus on logging the time dedicated to each task, Timelogger gives users an overview of the project's progress and productivity.
 
-The task is to implement a simple time logger web application that solves the following three user stories:
+## Architecture
 
-1. As a freelancer I want to be able to register how I spend time on my _projects_, so that I can provide my _customers_ with an overview of my work.
-2. As a freelancer I want to be able to get an _overview of my time registrations per project_, so that I can create correct invoices for my customers.
-2. As a freelancer I want to be able to _sort my projects by their deadline_, so that I can prioritise my work.
+The application was developed using an architecture based on the MVC (Model-View-Controller) pattern. Below is a detailed description of the system's architecture, including the technologies used and how the components interact with each other.
 
-Individual time registrations should be 30 minutes or longer, and once a project is complete it can no longer receive new registrations. You do not need to create an actual invoice.
+![diagram](./readme-assets/diagram.png)
 
-We ask that you clone this repository to complete the task, rather than fork it. You can either push it to a repository on your own account, or simply send us the project in a zip if you prefer. We recommend removing installed dependencies such as the `node_modules` directory prior to zipping, to keep the file size down.
+#### Technologies Used
 
-When presenting the solution please bring your own laptop if you have one. If you do not, please inform us before the meeting so that we can prepare.
+- **Backend**: C#/.NET.
+- **Frontend**: React with Typescript and Styled-components, and Jest for the tests.
 
-## Considerations
+#### Database Model
 
-What we're looking for is to see if you have the ability to transform a set of user requirements into a working solution, preferably creating some nice and clean code along the way. We will appreciate if your solution:
+- Users
+  - Roles (Freelances, Customers)
+- Projects
+- Tasks
+  - TaskCategories
+  - TaskTypes
 
--   Works, obviously
--   Contains readable, bug free code
--   Is appropriately covered by tests, in the frontend and backend (where required)
--   Follows sensible structured design patterns and thought proceses
--   Validates user input and contains test coverage for these use cases, at least in the backend
--   The front-end is typed using typescript
+#### Data Flow
 
-We want to see that you have thought about the design of your application, and considered how it might scale as it's complexity increases:
+1. **Authentication and Authorization**
 
--   Consider how your application might scale as it grows in use, and in number of developers working on it
--   Summarise any significant architectural decisions you take, to discuss in the presentation
+- The user logins via the POST endpoint /auth/login.
+- The backend validates the credentials and, if correct, generates a JWT token.
+- The JWT token is used by the frontend to authenticate and authorize subsequent requests.
 
-## Questions
+2. **Frontend-Backend Interaction**
 
-If you have any questions or concerns please simply ask.
+- The frontend submits HTTP requests to the API endpoints.
+- The backend, following the MVC pattern, processes these requests.
+  - **Model**: Represents the structure of the data (e.g. Users, Projects, Tasks).
+  - **View**: In the context of the backend, the “View” would be the API response in JSON format.
+  - **Controller**: Contains the logic that responds to requests from the frontend (e.g. methods for creating, reading, updating and deleting data).
 
----
+3. **CRUD Operations**
 
-We realise there are a lot of moving parts to such an application. To help, we have scaffolded a .NET Core v3.1 solution containing some basic setup to get you started, and a create-react-app base application for the front-end, containing some basic components and bootstrap styling to get you started.
+- Create: The frontend sends data to the backend to create new entries (e.g. new projects or tasks).
+- Read: The frontend requests data from the backend (e.g. list of projects, tasks).
+- Update: The frontend sends updated data to the backend to modify existing entries.
+- Delete: The frontend asks the backend to delete specific entries.
 
--   You are welcome to change or remove any part of this code, it is meant simply as a starting point
--   Styling and graphical design is not that important, we are assesing your ability to design and architect software - focus on that
--   Do not worry about authentication, imagine your application is already authenticated
--   You do not _need_ to create a database and can hardcode data in the appropriate place in your application, as if it were coming from a database
+#### Component Interaction
 
-## Development
+1. **Frontend**
 
-To run this project you will need both .NET Core v3.1 and Node installed on your environment.
+- Interacts with the end user, collecting input and displaying data.
+- Sends HTTP requests to the backend and processes the responses.
 
-Server - `dotnet restore` - to restore nuget packages, `dotnet build` - to build the solution, `cd Timelogger.Api && dotnet run` - starts a server on http://localhost:3001. You can download Visual Studio Code. The project was tested on MacOS High Sierra and Windows 10.
+2. **Backend**
 
-The server solution contains an API only with a basic Entity Framework in memory context that acts as a database.
+- Receives HTTP requests from the frontend.
+- Cotrollers process the requests, interacting with the data models.
+- Models represent the structure of the database and are manipulated by the controllers.
+- Returns responses to the frontend, usually in JSON format.
 
-Client - `npm install` to install dependencies, `npm start` runs the create-react-app development server
+3. **Database**
+
+- Stores persistent data such as users, projects, tasks, categories and task types.
+- Uses _InMemory/DbContext_ for data management.
+
+## Documentation
+
+For more detailed information on each component, **Front-end** and **Back-end**, access their respective documentation, which includes the entire installation and execution process.
+
+- [Front-end Documentation](./client/README.md)
+- [Back-end Documentation](./server/README.md)
+
+## Project Goals
+
+The entire project was developed on the basis of a challenge issued by the e-conomic team as part of the recruitment process. Let's review the objective points proposed by the team.
+
+- [] As a freelancer I want to be able to register how I spend time on my projects, so that I can provide my customers with an overview of my work.
+- [] As a freelancer I want to be able to get an overview of my time registrations per project, so that I can create correct invoices for my customers.
+- [] As a freelancer I want to be able to sort my projects by their deadline, so that I can prioritise my work.
+
+
+Thanks to everyone and it was a very nice challenge. 🎉
