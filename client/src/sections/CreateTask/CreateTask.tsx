@@ -95,7 +95,7 @@ const CreateTask = ({
     {
       id: "timeSpent",
       name: "timeSpent",
-      label: "Time Spent",
+      label: "Time Spent (Mins)",
       type: "number",
       inputType: "input",
     },

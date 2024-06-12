@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 import useAuth from "./useAuth";
 import { ProjectDTO, ProjectFormParams } from "@/types/Project";
 import { PageQueryParams, PageResult } from "../types/PagedResult";
-import { convertMsToTimeString } from "../utils/dateUtils";
+import { convertMsToMinutesString } from "../utils/dateUtils";
 
 import {
   create,
@@ -22,7 +22,7 @@ const useProject = () => {
     return items.map((i: ProjectDTO) => ({
       ...i,
       deadline: new Date(i.deadline as string).toLocaleDateString("pt-PT"),
-      totalTimeSpent: convertMsToTimeString(i.totalTimeSpent as number),
+      totalTimeSpent: convertMsToMinutesString(i.totalTimeSpent as number),
     }));
   };
 

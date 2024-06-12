@@ -2,7 +2,7 @@ import Button from "../../../components/Button";
 import { Status } from "../../../shared/types/Project";
 import { Task } from "@/shared/types/Task";
 
-import { convertMsToTimeString } from "../../../shared/utils/dateUtils";
+import { convertMsToMinutesString } from "../../../shared/utils/dateUtils";
 import useAuth from "../../../shared/hooks/useAuth";
 import { Role } from "../../../shared/types/User";
 
@@ -24,7 +24,7 @@ const ViewTask = ({ details, handleViewMode, handleDelete }: IViewTask) => {
       </p>
       <p>
         <b>Time Spent:</b>{" "}
-        {convertMsToTimeString(details.timeSpent as unknown as number)}
+        {convertMsToMinutesString(details.timeSpent as unknown as number)}
       </p>
       <p>
         <b>Category: </b>

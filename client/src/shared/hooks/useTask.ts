@@ -12,7 +12,7 @@ import {
 } from "../services/task.services";
 import { PageQueryParams, PageResult } from "../types/PagedResult";
 import { Task, TaskCategory, TaskFormParams, TaskType } from "../types/Task";
-import { convertHoursToMs, convertMsToTimeString } from "../utils/dateUtils";
+import { convertMinutesToMs, convertMsToMinutesString } from "../utils/dateUtils";
 import { Status } from "../types/Project";
 
 const useTask = () => {
@@ -21,7 +21,7 @@ const useTask = () => {
   const formatTasks = (items: Task[]): Task[] => {
     return items.map((i: Task) => ({
       ...i,
-      timeSpent: convertMsToTimeString(i.timeSpent as unknown as number),
+      timeSpent: convertMsToMinutesString(i.timeSpent as unknown as number),
       statusName: Status[i.status],
       categoryName: i?.category?.name,
       typeName: i?.type?.name,
@@ -30,7 +30,7 @@ const useTask = () => {
 
   const formatTaskForm = (form: TaskFormParams): TaskFormParams => ({
     ...form,
-    timeSpent: convertHoursToMs(parseInt(form.timeSpent)),
+    timeSpent: convertMinutesToMs(parseInt(form.timeSpent)),
   });
 
   const getProjectTasks = async (

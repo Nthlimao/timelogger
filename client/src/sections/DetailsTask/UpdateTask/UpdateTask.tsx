@@ -7,7 +7,7 @@ import Form from "../../../components/Form";
 
 import useForm from "../../../shared/hooks/useForm";
 import { statusOptions } from "../../../shared/types/Project";
-import { convertMsToHours } from "../../../shared/utils/dateUtils";
+import { convertMsToMinutes } from "../../../shared/utils/dateUtils";
 import { formatToOptions } from "../../../shared/utils/formUtils";
 import TaskUpdateForm, { TaskUpdateFormFooter } from "./UpdateTask.styles";
 
@@ -31,7 +31,7 @@ const UpdateTask = ({
       title: selected.title ?? "",
       taskCategoryId: selected.category?.id.toString() ?? "",
       taskTypeId: selected.type?.id.toString() ?? "",
-      timeSpent: convertMsToHours(parseInt(selected.timeSpent)) ?? "",
+      timeSpent: convertMsToMinutes(parseInt(selected.timeSpent)) ?? "",
       status: selected.status.toString(),
     }),
     [selected]
@@ -63,7 +63,7 @@ const UpdateTask = ({
     {
       id: "timeSpent",
       name: "timeSpent",
-      label: "Time Spent",
+      label: "Time Spent (Mins)",
       type: "number",
       inputType: "input",
     },

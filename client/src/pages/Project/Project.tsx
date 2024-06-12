@@ -16,7 +16,7 @@ import UpdateProject from "../../sections/UpdateProject";
 import useProject from "../../shared/hooks/useProject";
 import useTask from "../../shared/hooks/useTask";
 
-import { convertMsToTimeString } from "../../shared/utils/dateUtils";
+import { convertMsToMinutesString } from "../../shared/utils/dateUtils";
 import { ProjectDTO, Status } from "../../shared/types/Project";
 import { Task } from "@/shared/types/Task";
 import { PageQueryParams, PageResult } from "../../shared/types/PagedResult";
@@ -138,7 +138,7 @@ const ProjectPage = () => {
               </p>
               <p>
                 <b>Total Time Spent:</b>{" "}
-                {convertMsToTimeString(
+                {convertMsToMinutesString(
                   parseInt(project.totalTimeSpent as string)
                 )}
               </p>
