@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/solid";
 
@@ -51,7 +51,7 @@ const Navbar = (): ReactElement => {
                   {Role[user.role]}
                 </Badge>
               </NavbarProfile>
-              <NavbarLogout onClick={() => signOut()}>
+              <NavbarLogout onClick={() => signOut()} role="button">
                 <ArrowRightStartOnRectangleIcon width={24} height={24} />
               </NavbarLogout>
             </>

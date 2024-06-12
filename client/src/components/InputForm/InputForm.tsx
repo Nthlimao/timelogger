@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import InputFormStyles from "./InputForm.styles";
 import Badge from "../Badge";
 

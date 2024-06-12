@@ -15,7 +15,6 @@ const InputFormStyles = styled.div<IInputFormStyles>`
     font-size: 12px;
     font-weight: 500;
     color: #111827;
-    /* color: #94a3b8; */
     margin-bottom: 10px;
   }
 

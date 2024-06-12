@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import Badge from "../Badge";
 import { SelectOptions } from "@/shared/types/Form";
 import SelectFormStyles from "./SelectForm.styles";

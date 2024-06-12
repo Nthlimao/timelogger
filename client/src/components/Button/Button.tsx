@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import React, { ReactElement, ReactNode } from "react";
 import ButtonStyles from "./Button.styles";
 
 interface IButton {

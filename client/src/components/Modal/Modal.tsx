@@ -1,5 +1,6 @@
-import { ReactElement, ReactNode, useState } from "react";
+import React, { ReactElement, ReactNode, useState } from "react";
 import Button from "../Button";
+
 import ModalStyles, {
   ModalBody,
   ModalContainer,

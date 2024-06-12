@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { FormItem, FormProps } from "@/shared/types/Form";
 import FormStyles from "./Form.styles";
 import InputForm from "../InputForm";

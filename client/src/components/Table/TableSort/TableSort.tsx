@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode, useState } from "react";
+import React, { ReactElement, ReactNode, useState } from "react";
 
 import { PageQueryParams } from "@/shared/types/PagedResult";
 import TableSortStyles, { ChevronSort } from "./TableSort.styles";

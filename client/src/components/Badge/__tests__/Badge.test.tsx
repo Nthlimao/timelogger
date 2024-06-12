@@ -1,5 +1,6 @@
-import React from "react";
 import "@testing-library/jest-dom";
+
+import React from "react";
 import { render, screen } from "../../../shared/utils/customRender";
 import Badge from "../Badge";
 

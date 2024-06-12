@@ -33,12 +33,10 @@ namespace Timelogger.Api.Controllers
 
             var userId = int.Parse(userIdClaim.Value);
             var project = _context.Projects.Find(task.ProjectId);
-            Console.WriteLine(project);
-            Console.WriteLine(userId);
 
             if (project == null || project.FreelancerId != userId)
             {
-                return NotFound("Projeto não encontrato ao não pertence ao usuário");
+                return NotFound("Project not found or does not belong to the user.");
             }
 
             var projectStillOpen = project.Status != Status.Done && project.Status != Status.Canceled;

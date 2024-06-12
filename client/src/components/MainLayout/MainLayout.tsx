@@ -1,6 +1,6 @@
-import { ReactElement, ReactNode } from "react";
-import MainLayoutStyles from "./MainLayout.styles";
+import React, { ReactElement, ReactNode } from "react";
 import Navbar from "../Navbar";
+import MainLayoutStyles from "./MainLayout.styles";
 
 interface IMainLayout {
   children: ReactNode;

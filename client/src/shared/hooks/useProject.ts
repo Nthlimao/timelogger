@@ -102,7 +102,7 @@ const useProject = () => {
       if (!axios.isAxiosError(response) && response.data) {
         return response.data;
       } else {
-        console.log(response);
+        alert(`Error: ${response.statusText}`);
       }
     } catch (err) {
       const error = err as AxiosError;

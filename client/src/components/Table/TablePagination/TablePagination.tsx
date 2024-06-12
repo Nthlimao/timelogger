@@ -1,11 +1,12 @@
-import { ReactElement, ReactNode } from "react";
+import React, { ReactElement, ReactNode } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+
+import { PagePagination } from "@/shared/types/PagedResult";
 
 import TablePaginationStyles, {
   PaginationButton,
   PaginationButtonIcon,
 } from "./TablePagination.styles";
-import { PagePagination } from "@/shared/types/PagedResult";
 
 interface ITablePagination {
   currentPage: PagePagination["pageNumber"];
@@ -24,6 +25,7 @@ const TablePagination = ({
       pageNumbers.push(
         <PaginationButton
           key={i}
+          role="button"
           isCurrentPage={i === currentPage}
           onClick={() => onPageChange(i)}
         >
@@ -39,6 +41,7 @@ const TablePagination = ({
       <PaginationButton
         disabled={currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
+        data-testid="left-page-btn"
       >
         <PaginationButtonIcon>
           <ChevronLeftIcon />
@@ -48,6 +51,7 @@ const TablePagination = ({
       <PaginationButton
         disabled={currentPage === totalPages}
         onClick={() => onPageChange(currentPage + 1)}
+        data-testid="right-page-btn"
       >
         <PaginationButtonIcon>
           <ChevronRightIcon />

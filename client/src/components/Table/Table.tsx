@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 
 import { PageQueryParams } from "@/shared/types/PagedResult";
 import { Data, TableProps } from "./Table.types";
