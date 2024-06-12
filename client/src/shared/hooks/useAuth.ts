@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { AuthContext } from "../contexts/auth";
 import { AuthContextType } from "@/contexts/auth/auth.types";
 import { authLogin } from "../services/auth.service";
@@ -35,25 +35,31 @@ const useAuth = () => {
         const { token } = response.data;
         const resUser = await getDetails(getAuthenticatedHeaders(token));
         setToken(token);
-        if (!axios.isAxiosError(response)) {
+        if (!axios.isAxiosError(resUser)) {
           const user = resUser.data;
           setUser(user);
           navigate("/");
         } else {
-          console.log(response);
+          alert(resUser.statusText);
         }
       } else {
-        console.log(response);
+        alert(response.statusText);
       }
     } catch (err) {
-      console.log(err);
+      const error = err as AxiosError;
+      alert(`Error: ${error.response?.data}`);
     }
+  };
+
+  const logout = () => {
+    localStorage.removeItem("authState");
   };
 
   return {
     setToken,
     setUser,
     login,
+    logout,
     getAuthenticatedHeaders,
     ...state,
   };

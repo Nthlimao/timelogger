@@ -9,3 +9,7 @@ export type User = {
   email: string;
   role: Role;
 };
+
+export interface Customer extends User {
+  id: string;
+}

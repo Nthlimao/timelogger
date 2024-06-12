@@ -1,10 +1,19 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import useAuth from "./useAuth";
-import { ProjectDTO } from "@/types/Project";
-import { project, projects } from "../services/project.services";
+import { ProjectDTO, ProjectFormParams } from "@/types/Project";
 import { PageQueryParams, PageResult } from "../types/PagedResult";
 import { convertMsToTimeString } from "../utils/dateUtils";
+
+import {
+  create,
+  deleteProject as deleteProjectService,
+  project,
+  projects,
+  update,
+} from "../services/project.services";
+import { Customer } from "../types/User";
+import { getCustomers } from "../services/user.service";
 
 const useProject = () => {
   const { token, getAuthenticatedHeaders } = useAuth();
@@ -28,10 +37,11 @@ const useProject = () => {
           items: formartProjects(response.data.items),
         };
       } else {
-        console.log(response);
+        alert(response.statusText);
       }
     } catch (err) {
-      console.log(err);
+      const error = err as AxiosError;
+      alert(`Error: ${error.response?.data}`);
     }
   };
 
@@ -41,16 +51,89 @@ const useProject = () => {
       if (!axios.isAxiosError(response) && response.data) {
         return response.data;
       } else {
+        alert(response.statusText);
+      }
+    } catch (err) {
+      const error = err as AxiosError;
+      alert(`Error: ${error.response?.data}`);
+    }
+  };
+
+  const updateProject = async (
+    id: string,
+    payload: ProjectFormParams
+  ): Promise<boolean | undefined> => {
+    try {
+      const response = await update(
+        id,
+        payload,
+        getAuthenticatedHeaders(token)
+      );
+      if (!axios.isAxiosError(response) && response.status === 200) {
+        return true;
+      } else {
+        alert(`Error: ${response.data}`);
+      }
+    } catch (err) {
+      const error = err as AxiosError;
+      alert(`Error: ${error.response?.data}`);
+    }
+  };
+
+  const createProject = async (
+    payload: ProjectFormParams
+  ): Promise<boolean | undefined> => {
+    try {
+      const response = await create(payload, getAuthenticatedHeaders(token));
+      if (!axios.isAxiosError(response) && response.status === 200) {
+        return true;
+      } else {
+        alert(`Error: ${response.statusText}`);
+      }
+    } catch (err) {
+      const error = err as AxiosError;
+      alert(`Error: ${error.response?.data}`);
+    }
+  };
+
+  const getAvailableCustomers = async (): Promise<Customer[] | undefined> => {
+    try {
+      const response = await getCustomers(getAuthenticatedHeaders(token));
+      if (!axios.isAxiosError(response) && response.data) {
+        return response.data;
+      } else {
         console.log(response);
       }
     } catch (err) {
-      console.log(err);
+      const error = err as AxiosError;
+      alert(`Error: ${error.response?.data}`);
+    }
+  };
+
+  const deleteProject = async (id: string): Promise<boolean | undefined> => {
+    try {
+      const response = await deleteProjectService(
+        id,
+        getAuthenticatedHeaders(token)
+      );
+      if (!axios.isAxiosError(response) && response.status === 204) {
+        return true;
+      } else {
+        alert(response.statusText);
+      }
+    } catch (err) {
+      const error = err as AxiosError;
+      alert(`Error: ${error.response?.data}`);
     }
   };
 
   return {
     getProjects,
     getProjectDetails,
+    createProject,
+    updateProject,
+    getAvailableCustomers,
+    deleteProject,
   };
 };
 

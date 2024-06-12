@@ -15,13 +15,14 @@ export type ValidationRulesName =
   | "required"
   | "minLength"
   | "maxLength"
-  | "email";
+  | "email"
+  | "date";
 
 export interface ValidationRules {
   required?: boolean;
   minLength?: number;
   maxLength?: number;
-  pattern?: "email";
+  pattern?: "email" | "date";
 }
 
 export interface InputValidations {

@@ -1,18 +1,24 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PlusIcon } from "@heroicons/react/16/solid";
 
 import Button from "../../components/Button";
 import Table from "../../components/Table";
+import CreateProject from "../../sections/CreateProject";
+
 import useProject from "../../shared/hooks/useProject";
 
-import ProjectsStyles, { ProjectsPageHeader } from "./Projects.styles";
-import { useEffect, useState } from "react";
+import { Data } from "@/components/Table/Table.types";
 import { ProjectDTO } from "@/shared/types/Project";
 import { PageQueryParams, PageResult } from "@/shared/types/PagedResult";
-import { Data } from "@/components/Table/Table.types";
+import ProjectsStyles, { ProjectsPageHeader } from "./Projects.styles";
+import useAuth from "../../shared/hooks/useAuth";
+import { Role } from "../../shared/types/User";
 
 const ProjectsPage = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const [isCreateProjectOpen, setCreateProjectOpen] = useState<boolean>(false);
   const [pagedProjects, setPagedProjects] = useState<PageResult<ProjectDTO>>();
   const [pageQueryParams, setPageQueryParams] = useState<PageQueryParams>();
 
@@ -52,14 +58,21 @@ const ProjectsPage = () => {
 
   return (
     <ProjectsStyles className="container">
+      <CreateProject
+        isCreateProjectOpen={isCreateProjectOpen}
+        setCreateProjectOpen={setCreateProjectOpen}
+        reloadProjects={fetchProjects}
+      />
       <ProjectsPageHeader>
         <div>
           <h2>Projects</h2>
           <p>A list of all the user's projects</p>
         </div>
-        <Button>
-          <PlusIcon width={18} height={18} /> New Project
-        </Button>
+        {user?.role == Role.Freelancer && (
+          <Button onClick={() => setCreateProjectOpen(true)}>
+            <PlusIcon width={18} height={18} /> New Project
+          </Button>
+        )}
       </ProjectsPageHeader>
       <>
         {pagedProjects && (

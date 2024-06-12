@@ -19,6 +19,9 @@ export const LoginBox = styled.div`
 
   form {
     width: 100%;
+    label {
+      color: #fff;
+    }
   }
 `;
 

@@ -30,8 +30,8 @@ export const update = async (
   id: string,
   payload: TaskFormParams,
   headers: AuthHeaders
-): Promise<AxiosResponse<Task>> => {
-  const response = await api.put<Task>(`/tasks/${id}`, payload, {
+): Promise<AxiosResponse> => {
+  const response = await api.put(`/tasks/${id}`, payload, {
     headers,
   });
   return response;
@@ -40,8 +40,18 @@ export const update = async (
 export const create = async (
   payload: TaskFormParams,
   headers: AuthHeaders
-): Promise<AxiosResponse<Task>> => {
-  const response = await api.post<Task>("/tasks/", payload, {
+): Promise<AxiosResponse> => {
+  const response = await api.post("/tasks/", payload, {
+    headers,
+  });
+  return response;
+};
+
+export const deleteTask = async (
+  id: string,
+  headers: AuthHeaders
+): Promise<AxiosResponse> => {
+  const response = await api.delete(`/tasks/${id}`, {
     headers,
   });
   return response;

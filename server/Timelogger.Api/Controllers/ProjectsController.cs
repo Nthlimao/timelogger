@@ -125,13 +125,14 @@ namespace Timelogger.Api.Controllers
 
 			return Ok(new ProjectDTO(project)
 			{
-				TotalTimeSpent = GetTotalTimeSpent(project)
+				TotalTimeSpent = GetTotalTimeSpent(project),
+				Customer = GetCustomerName(project.CustomerId)
 			});
 		}
 
 		[Authorize(Policy = "FreelancerOnly")]
 		[HttpPost]
-		public ActionResult CreateProject(Project project)
+		public ActionResult CreateProject([FromForm] Project project)
 		{
 			var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
 
@@ -146,12 +147,12 @@ namespace Timelogger.Api.Controllers
 			_context.Projects.Add(project);
 			_context.SaveChanges();
 
-			return Ok(project);
+			return Ok();
 		}
 
 		[Authorize(Policy = "FreelancerOnly")]
 		[HttpPut("{id}")]
-		public ActionResult UpdateProject(int id, Project updatedProject)
+		public ActionResult UpdateProject(int id, [FromForm] Project updatedProject)
 		{
 			var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "Id");
 
@@ -188,7 +189,7 @@ namespace Timelogger.Api.Controllers
 			_context.Entry(project).State = EntityState.Modified;
 			_context.SaveChanges();
 
-			return Ok(project);
+			return Ok();
 		}
 
 		[Authorize(Policy = "FreelancerOnly")]

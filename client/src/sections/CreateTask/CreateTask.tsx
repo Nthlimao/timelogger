@@ -16,7 +16,7 @@ import CreateTaskStyles, {
   TaskCreateFormFooter,
 } from "./CreateTask.styles";
 
-interface ITaskDetails {
+interface ICreateTask {
   projectId?: string;
   isCreateTaskOpen: boolean;
   setCreateTaskOpen: (state: boolean) => void;
@@ -28,7 +28,7 @@ const CreateTask = ({
   isCreateTaskOpen,
   setCreateTaskOpen,
   reloadTasks,
-}: ITaskDetails) => {
+}: ICreateTask) => {
   const { getTaskCategories, getTaskTypes, createTask } = useTask();
 
   const [types, setTypes] = useState<TaskType[]>([]);
@@ -50,10 +50,8 @@ const CreateTask = ({
     status: { required: true },
   };
 
-  const { values, errors, isValid, handleChange, validateField } = useForm(
-    initialForm,
-    validationsForm
-  );
+  const { values, errors, isValid, handleChange, validateField, resetForm } =
+    useForm(initialForm, validationsForm);
 
   const fetchTaskOptions = async () => {
     const dataCategories = await getTaskCategories();
@@ -72,6 +70,7 @@ const CreateTask = ({
       } as TaskFormParams);
       if (response) {
         setCreateTaskOpen(false);
+        resetForm();
         await reloadTasks();
       }
     }
@@ -131,7 +130,7 @@ const CreateTask = ({
         hideFooter
       >
         <TaskCreateForm onSubmit={handleSubmit}>
-          <h2>Update Task</h2>
+          <h2>Create New Task</h2>
           <Form
             values={values}
             errors={errors}

@@ -45,10 +45,8 @@ const UpdateTask = ({
     status: { required: true },
   };
 
-  const { values, errors, isValid, handleChange, validateField } = useForm(
-    initialForm,
-    validationsForm
-  );
+  const { values, errors, isValid, handleChange, validateField, resetForm } =
+    useForm(initialForm, validationsForm);
 
   const handleBlur = (id: string, value: string) => {
     validateField(id, value);
@@ -96,6 +94,7 @@ const UpdateTask = ({
     event.preventDefault();
     if (isValid(true)) {
       handleSubmit(values);
+      resetForm();
     }
   };
 

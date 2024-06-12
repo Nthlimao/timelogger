@@ -28,3 +28,10 @@ export type Project = {
 export type ProjectDTO = Project & {
   totalTimeSpent: number | string;
 };
+
+export type ProjectFormParams = {
+  name: string;
+  customerId: string;
+  deadline: string;
+  status: string;
+};

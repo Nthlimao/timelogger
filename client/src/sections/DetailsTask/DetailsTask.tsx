@@ -21,7 +21,7 @@ interface ITaskDetails {
 }
 
 const DetailsTask = ({ selectedTask, reloadTasks }: ITaskDetails) => {
-  const { getTaskCategories, getTaskTypes, updateTask } = useTask();
+  const { getTaskCategories, getTaskTypes, updateTask, deleteTask } = useTask();
 
   const [isTaskModalOpen, setTaskModalOpen] = useState<boolean>(false);
   const [isEditMode, setEditMode] = useState<boolean>(false);
@@ -49,6 +49,16 @@ const DetailsTask = ({ selectedTask, reloadTasks }: ITaskDetails) => {
     }
   };
 
+  const handleDelete = async () => {
+    const response = await deleteTask(selectedTask.id.toString());
+
+    if (response) {
+      setTaskModalOpen(false);
+      setEditMode(false);
+      await reloadTasks();
+    }
+  };
+
   useEffect(() => {
     if (selectedTask) setTaskModalOpen(true);
   }, [selectedTask]);
@@ -67,6 +77,7 @@ const DetailsTask = ({ selectedTask, reloadTasks }: ITaskDetails) => {
         {selectedTask && !isEditMode && (
           <ViewTask
             details={selectedTask}
+            handleDelete={handleDelete}
             handleViewMode={() => setEditMode(true)}
           />
         )}

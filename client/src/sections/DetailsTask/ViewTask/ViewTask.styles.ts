@@ -16,9 +16,17 @@ const ViewTaskDetails = styled.div`
   }
 
   button {
-    margin-top: 20px;
     display: flex;
     justify-content: center;
+    margin-bottom: 10px;
+    &:first-of-type {
+      margin-top: 20px;
+    }
+    &:last-of-type {
+      margin-bottom: 0;
+      color: #ffffff;
+      background-color: #ef4444;
+    }
   }
 `;
 

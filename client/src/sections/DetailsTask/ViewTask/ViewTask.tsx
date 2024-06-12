@@ -3,15 +3,19 @@ import { Status } from "../../../shared/types/Project";
 import { Task } from "@/shared/types/Task";
 
 import { convertMsToTimeString } from "../../../shared/utils/dateUtils";
+import useAuth from "../../../shared/hooks/useAuth";
+import { Role } from "../../../shared/types/User";
 
 import ViewTaskDetails from "./ViewTask.styles";
 
 interface IViewTask {
   details: Task;
   handleViewMode: () => void;
+  handleDelete: () => void;
 }
 
-const ViewTask = ({ details, handleViewMode }: IViewTask) => {
+const ViewTask = ({ details, handleViewMode, handleDelete }: IViewTask) => {
+  const { user } = useAuth();
   return (
     <ViewTaskDetails>
       <h2>{details.title}</h2>
@@ -30,7 +34,12 @@ const ViewTask = ({ details, handleViewMode }: IViewTask) => {
         <b>Task Type: </b>
         {details.type?.name}
       </p>
-      <Button onClick={handleViewMode}>Edit</Button>
+      {user?.role == Role.Freelancer && (
+        <>
+          <Button onClick={handleViewMode}>Edit</Button>
+          <Button onClick={handleDelete}>Delete</Button>
+        </>
+      )}
     </ViewTaskDetails>
   );
 };

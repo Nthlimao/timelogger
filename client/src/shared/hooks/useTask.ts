@@ -1,9 +1,10 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import useAuth from "./useAuth";
 import {
   categoriesTask,
   create,
+  deleteTask as deleteTaskService,
   task,
   tasks,
   typesTask,
@@ -51,7 +52,8 @@ const useTask = () => {
         alert(`Error: ${response.statusText}`);
       }
     } catch (err) {
-      alert(`Error: ${err}`);
+      const error = err as AxiosError;
+      alert(`Error: ${error.response?.data}`);
     }
   };
 
@@ -64,7 +66,8 @@ const useTask = () => {
         alert(`Error: ${response.statusText}`);
       }
     } catch (err) {
-      alert(`Error: ${err}`);
+      const error = err as AxiosError;
+      alert(`Error: ${error.response?.data}`);
     }
   };
 
@@ -77,7 +80,8 @@ const useTask = () => {
         alert(`Error: ${response.statusText}`);
       }
     } catch (err) {
-      alert(`Error: ${err}`);
+      const error = err as AxiosError;
+      alert(`Error: ${error.response?.data}`);
     }
   };
 
@@ -90,7 +94,8 @@ const useTask = () => {
         alert(`Error: ${response.statusText}`);
       }
     } catch (err) {
-      alert(`Error: ${err}`);
+      const error = err as AxiosError;
+      alert(`Error: ${error.response?.data}`);
     }
   };
 
@@ -110,7 +115,8 @@ const useTask = () => {
         alert(`Error: ${response.statusText}`);
       }
     } catch (err) {
-      alert(`Error: ${err}`);
+      const error = err as AxiosError;
+      alert(`Error: ${error.response?.data}`);
     }
   };
 
@@ -128,7 +134,25 @@ const useTask = () => {
         alert(`Error: ${response.statusText}`);
       }
     } catch (err) {
-      alert(`Error: ${err}`);
+      const error = err as AxiosError;
+      alert(`Error: ${error.response?.data}`);
+    }
+  };
+
+  const deleteTask = async (id: string): Promise<boolean | undefined> => {
+    try {
+      const response = await deleteTaskService(
+        id,
+        getAuthenticatedHeaders(token)
+      );
+      if (!axios.isAxiosError(response) && response.status === 204) {
+        return true;
+      } else {
+        alert(response.statusText);
+      }
+    } catch (err) {
+      const error = err as AxiosError;
+      alert(`Error: ${error.response?.data}`);
     }
   };
 
@@ -139,6 +163,7 @@ const useTask = () => {
     getTaskTypes,
     updateTask,
     createTask,
+    deleteTask,
   };
 };
 

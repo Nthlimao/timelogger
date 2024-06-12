@@ -73,4 +73,13 @@ export const NavbarProfile = styled.div`
   }
 `;
 
+export const NavbarLogout = styled.a`
+  color: #0f172a;
+  padding: 5px 8px;
+  background-color: #7dd3fc;
+  border-radius: 3px;
+  margin-left: 20px;
+  cursor: pointer;
+`;
+
 export default NavbarStyles;

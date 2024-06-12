@@ -18,7 +18,7 @@ const LoginPage = (): ReactElement => {
   };
 
   const validationsForm: InputValidations = {
-    email: { required: true, pattern: "email" },
+    email: { required: true },
     password: { required: true },
   };
 

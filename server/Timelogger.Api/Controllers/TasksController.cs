@@ -165,7 +165,7 @@ namespace Timelogger.Api.Controllers
             }
 
             var project = _context.Projects.Find(task.ProjectId);
-            if (project == null || project.FreelancerId != userId)
+            if (project == null || project.FreelancerId != userId && project.CustomerId != userId)
             {
                 return NotFound();
             }
